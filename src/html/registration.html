@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="/css/registration_style.css">
+</head>
+
+<body style="background-color: gray;">
+    <section class="container">
+        <header>Registration</header>
+        <form action="#" class="form">
+            <!-- Full Name -->
+            <div class="input-box">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" placeholder="Enter full name" required>
+            </div>
+
+            <!-- Email Address -->
+            <div class="input-box">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter email address" required>
+            </div>
+
+            <!-- Password -->
+            <div class="input-box">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password" required>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="input-box">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter phone number" required>
+            </div>
+
+            <!-- Birth Date -->
+            <div class="input-box">
+                <label for="birth-date">Birth Date</label>
+                <input type="date" id="birth-date" placeholder="Enter birth date" required>
+            </div>
+
+            <!-- Gender -->
+            <div class="gender-box">
+                <h3>Gender</h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input type="radio" id="check-male" name="gender">
+                        <label for="check-male">Male</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="check-female" name="gender">
+                        <label for="check-female">Female</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="check-other" name="gender" checked>
+                        <label for="check-other">Prefer not to say</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Link to Login Page -->
+        <a href="login.html" class="login-link">Already have an account?</a>
+
+      </section>
+
+</body>
+</html>

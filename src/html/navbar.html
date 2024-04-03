@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+
+    <script>
+        function performSearch() {
+            // Get the search input value
+            var searchQuery = document.getElementById("search").value;
+
+            // You can perform your search logic here
+            // For demonstration purposes, let's just alert the search query
+            alert("Performing search for: " + searchQuery);
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Navigation section -->
+    <section class="header-navigation row">
+        <!-- Navigation links -->
+        <nav class="col-xs-12">
+            <ul class="nav navbar-nav">
+                <li><a href="/" class="menu header-navigation-button">Home</a></li>
+                <li><a href="/" class="menu header-navigation-button">About Us</a></li>
+                <li><a href="/" class="menu header-navigation-button">Contact Us</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <div class="option-content">
+                    <li>
+                        <a href="/" class="menu header-navigation-button">
+                            <img src="/images/login_logo.png" alt="Login">
+                            <p>Log in</p>
+                        </a>
+                    </li>
+                </div>
+                <div class="option-content">
+                    <li>
+                        <a href="/" class="menu header-navigation-button">
+                            <img src="/images/cart_logo.png" alt="Cart">
+                            <p>Cart</p>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+    </section>
+
+    <!-- Header section -->
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                <!-- Logo -->
+                <div class="col-xs-6">
+                    <div class="logo">
+                        <a href="/" title="Sample Store">
+                            <img src="/images/logo.png" alt="Store Logo">
+                        </a>
+                    </div>
+                </div>
+                <!-- Search bar -->
+                <div class="col-xs-6">
+                    <div id="FRAME_SEARCH" class="search-form">
+                        <form onsubmit="event.preventDefault(); performSearch();" role="search">
+                            <label for="search" class="visually-hidden"></label>
+                            <input id="search" type="search" placeholder="Search..." class="search-text" autofocus required />
+                            <button type="submit"><img src="/images/search_icon.png" alt="Search Icon"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Line between sections -->
+    <div class="line-between-sections"></div>
+
+    <!-- Categories navigation -->
+    <section class="categoriesNav">
+        <div class="container-navbar">
+            <nav>
+                <ul class="nav navbar-nav">
+                    <!-- Categories -->
+                    <li><a href="/">Gaming</a></li>
+                    <li><a href="/">PCs</a></li>
+                    <li><a href="/">Laptops</a></li>
+                    <li><a href="/">Hardware</a></li>
+                    <li><a href="/">Software</a></li>
+                    <li><a href="/">Networking</a></li>
+                    <li><a href="/">Audio</a></li>
+                    <li><a href="/">Video</a></li>
+                    <li><a href="/">Printers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+</body>
+</html>
