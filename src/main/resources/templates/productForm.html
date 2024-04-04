@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+</style>
+
+    <form th:action="${formUrl}" method="POST">
+        <input type="text" name="name" placeholder="Product Name" th:value ="${product?.getName()}"><br>
+        <input type="number" name="defaultPrice" placeholder="Product Default Price" th:value="${product?.getDefaultPrice()}"><br>
+        <input type="number" name="minimumPrice" placeholder="Product Minimum Price" th:value="${product?.getMinimumPrice()}"><br>
+        <input type="url" name="imageLink" placeholder="Product Image" th:value="${product?.getImageLink()}"><br>
+        <input type="number" name="stockAmount" placeholder="Product Stock Amount" th:value="${product?.getStockAmount()}"><br>
+        <input type="submit">
+    </form>
+
+</body>
+</html>
