@@ -1,0 +1,128 @@
+/* Set default styles for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    display: flex;
+    flex-direction: row;
+}
+
+/* Style for contact information section, contact form, and map */
+.contact-info,
+.contact-form,
+.map {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin: 10px;
+}
+
+/* Style for heading in contact form */
+.contact-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style for labels in contact form */
+.contact-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Style for input fields and text area in contact form */
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    resize: vertical;
+    border-radius: 6px;
+}
+
+/* Style for text area in contact form */
+.contact-form textarea {
+    resize: none; /* Prevent resizing of textarea */
+    height: 200px;
+    overflow-y: auto; /* Enable vertical scroll bar */
+}
+
+/* Style for send button in contact form */
+.contact-form .send-btn {
+    text-align: center; /* Center align the button */
+    display: block; /* Ensure button takes up full width of its container */
+    margin: 0 auto; /* Center the button horizontally */
+}
+
+/* Style for button in contact form */
+.contact-form button {
+    background-color: #5C8DFF;
+    color: white;
+    padding: 10px 60px;
+    border: none;
+    cursor: pointer; /* Set cursor to pointer */
+    border-radius: 6px;
+}
+
+/* Hover effect for button in contact form */
+.contact-form button:hover {
+    background-color: #0c54fd;
+}
+
+/* Style for contact information section */
+.contact-info {
+    text-align: left;
+}
+
+/* Style for unordered list in contact information section */
+.contact-info ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    padding-top: 25px;
+}
+
+/* Style for list items in unordered list */
+.contact-info ul li {
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+/* Style for bold text in contact information section */
+.contact-info b {
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+/* Style for images in contact information section */
+.contact-info img {
+    vertical-align: middle; /* Align the image vertically */
+    margin-right: 10px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    padding-left: 5px;
+}
+
+/* Style for contact links */
+.contact-link {
+    text-decoration: none; /* Remove underline */
+    color: black;
+}
+
+/* Hover effect for contact links */
+.contact-link:hover {
+    text-decoration: underline; /* Underline the text on hover */
+    color: blue;
+}
+
+/* Style for map container */
+.map-scr {
+    border-radius: 6px;
+}
