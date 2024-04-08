@@ -1,4 +1,4 @@
-package com.failedsaptrainees.onlinestore.DTO;
+package com.failedsaptrainees.onlinestore.DTO.Views;
 
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import lombok.AllArgsConstructor;

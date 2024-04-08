@@ -18,14 +18,18 @@ table, th, td {
         <tr>
             <th>Product name</th>
             <th>Price</th>
+            <th>Amount</th>
+            <th>Total Price</th>
             <th>Actions</th>
         </tr>
 
-        <tr th:each="product: ${products}">
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getCurrentPrice()}"></td>
+        <tr th:each="cartProducts: ${cartProducts}">
+            <td th:text="${cartProducts.getName()}"></td>
+            <td th:text="${cartProducts.getCurrentPrice()}"></td>
+            <td th:text="${cartProducts.getAmount()}"></td>
+            <td th:text="${cartProducts.getAmount() * cartProducts.getCurrentPrice()}"></td>
             <td>
-                <a th:href="@{/cart/remove/{id}(id=${product.getId()})}">Remove from cart</a>
+                <a th:href="@{/cart/remove/{id}(id=${cartProducts.getProductId()})}">Remove from cart</a>
             </td>
         </tr>
 

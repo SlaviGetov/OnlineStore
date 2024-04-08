@@ -1,13 +1,11 @@
 package com.failedsaptrainees.onlinestore.web;
 
 
-import com.failedsaptrainees.onlinestore.DTO.RegistrationDTO;
-import com.failedsaptrainees.onlinestore.repositories.RoleRepository;
+import com.failedsaptrainees.onlinestore.DTO.Forms.RegistrationDTO;
 import com.failedsaptrainees.onlinestore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/user")

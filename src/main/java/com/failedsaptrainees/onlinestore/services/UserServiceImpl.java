@@ -1,10 +1,9 @@
 package com.failedsaptrainees.onlinestore.services;
 
-import com.failedsaptrainees.onlinestore.DTO.RegistrationDTO;
+import com.failedsaptrainees.onlinestore.DTO.Forms.RegistrationDTO;
 import com.failedsaptrainees.onlinestore.models.UserModel;
 import com.failedsaptrainees.onlinestore.repositories.RoleRepository;
 import com.failedsaptrainees.onlinestore.repositories.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,5 +38,10 @@ public class UserServiceImpl implements UserService{
                 roleRepository.findByName(roleName)
         );
         userRepository.saveAndFlush(userModel);
+    }
+
+    @Override
+    public UserModel getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

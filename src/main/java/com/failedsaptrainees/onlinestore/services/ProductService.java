@@ -1,6 +1,6 @@
 package com.failedsaptrainees.onlinestore.services;
 
-import com.failedsaptrainees.onlinestore.DTO.ProductViewDTO;
+import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 
 import java.util.List;

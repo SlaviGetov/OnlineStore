@@ -1,4 +1,4 @@
-package com.failedsaptrainees.onlinestore.DTO;
+package com.failedsaptrainees.onlinestore.DTO.Forms;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
