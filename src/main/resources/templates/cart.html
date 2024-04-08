@@ -31,7 +31,7 @@
                     <tr th:each="cartProducts: ${cartProducts}">
                         <td>
                             <div class="cart-info">
-                                <img src="images/place_holder_img.png">
+                                <img th:src="${cartProducts.getImageUrl()}">
                                 <div class="product-name">
                                     <p th:text="${cartProducts.getName()}"></p>
                                 </div>

@@ -30,9 +30,6 @@ public class AuthenticationSuccessListener extends SavedRequestAwareAuthenticati
 
         HttpSession session = request.getSession(false);
 
-        System.out.println(authentication.getName() + " logged in!");
-        System.out.println(session.getId());
-
         mergeCartFromSession(authentication, session);
         super.onAuthenticationSuccess(request, response, authentication);
     }
@@ -51,7 +48,6 @@ public class AuthenticationSuccessListener extends SavedRequestAwareAuthenticati
             cartProductService.addItemToCart(cartProductModelListInDB, cartProductModel.getProduct(), cartProductModel.getAmount());
         }
 
-        cartProductModelListInDB.addAll(cartProductModelListInSession);
         cartProductService.saveCart(cartProductModelListInDB, httpSession);
     }
 

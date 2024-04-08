@@ -37,6 +37,7 @@ public class CartController {
         List<CartViewDTO> cartItemsDTO = new ArrayList<>();
         for (CartProductModel cartProductModel : cartList) {
             cartItemsDTO.add(new CartViewDTO(
+                    cartProductModel.getProduct().getImageLink(),
                     cartProductModel.getProduct().getId(),
                     cartProductModel.getProduct().getName(),
                     cartProductModel.getProduct().getCurrentPrice(),
@@ -62,7 +63,6 @@ public class CartController {
     {
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
         cartProductService.removeItemFromCart(cartList, productService.getProductByID(Math.toIntExact(product_id)));
-        System.out.println(cartList.size());
         cartProductService.saveCart(cartList, httpSession);
         return "redirect:/cart/";
     }

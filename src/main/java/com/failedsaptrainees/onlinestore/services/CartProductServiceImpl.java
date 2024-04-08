@@ -139,8 +139,6 @@ public class CartProductServiceImpl implements CartProductService {
 
         cartList.remove(cartProduct.get());
 
-
-        System.out.println(cartList.size());
     }
 
     @Override

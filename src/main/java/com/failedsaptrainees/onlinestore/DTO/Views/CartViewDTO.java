@@ -2,13 +2,15 @@ package com.failedsaptrainees.onlinestore.DTO.Views;
 
 public class CartViewDTO {
 
+    private String imageUrl;
     private Long productId;
     private String name;
     private Double currentPrice;
     private int amount;
 
 
-    public CartViewDTO(Long productId, String name, Double currentPrice, int amount) {
+    public CartViewDTO(String imageUrl, Long productId, String name, Double currentPrice, int amount) {
+        this.imageUrl = imageUrl;
         this.productId = productId;
         this.name = name;
         this.currentPrice = currentPrice;
@@ -45,5 +47,13 @@ public class CartViewDTO {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
