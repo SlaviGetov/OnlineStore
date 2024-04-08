@@ -12,6 +12,7 @@ public interface CartProductService {
     public List<CartProductModel> getCartFromSession(HttpSession httpSession);
     public List<CartProductModel> getCartFromDB();
     public void addItemToCart(List<CartProductModel> cartProductModels, ProductModel productModel);
+    public void addItemToCart(List<CartProductModel> cartProductModels, ProductModel productModel, int amount);
     public void removeItemFromCart(List<CartProductModel> cartProductModels, ProductModel productModel);
     public void setItemAmount(List<CartProductModel> cartProductModels, ProductModel productModel, int amount);
     public boolean saveCart(List<CartProductModel> cartProductModels, HttpSession httpSession);

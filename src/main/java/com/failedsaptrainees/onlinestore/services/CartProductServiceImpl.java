@@ -91,6 +91,34 @@ public class CartProductServiceImpl implements CartProductService {
         cartList.add(newCartProduct);
     }
 
+
+    @Override
+    public void addItemToCart(List<CartProductModel> cartList, ProductModel productModel, int amount) {
+
+        Optional<CartProductModel> cartProduct = cartList.stream().
+                filter(cartProductModel -> cartProductModel.getProduct().getId().equals(productModel.getId())).
+                findFirst();
+
+        if(cartProduct.isPresent())
+        {
+            setItemAmount(cartList, productModel, cartProduct.get().getAmount() + amount);
+            return;
+        }
+
+        CartProductModel newCartProduct = new CartProductModel();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.isAuthenticated())
+        {
+            newCartProduct.setUser(userService.getUserByEmail(authentication.getName()));
+        }
+
+        newCartProduct.setProduct(productModel);
+        newCartProduct.setAmount(amount);
+        cartList.add(newCartProduct);
+    }
+
+
     @Override
     public void removeItemFromCart(List<CartProductModel> cartList, ProductModel productModel) {
 
@@ -103,7 +131,16 @@ public class CartProductServiceImpl implements CartProductService {
             return;
         }
 
+
+        if(AuthenticationChecker.isLoggedIn())
+        {
+            cartProductRepository.delete(cartProduct.get());
+        }
+
         cartList.remove(cartProduct.get());
+
+
+        System.out.println(cartList.size());
     }
 
     @Override

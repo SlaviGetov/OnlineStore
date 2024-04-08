@@ -12,6 +12,9 @@ public class ResourceConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**")
-                .addResourceLocations("classpath:/static/");
+                .addResourceLocations("classpath:/static/css/");
+
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("classpath:/static/images/");
     }
 }

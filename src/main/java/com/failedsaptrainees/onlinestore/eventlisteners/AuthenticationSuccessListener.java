@@ -48,7 +48,7 @@ public class AuthenticationSuccessListener extends SavedRequestAwareAuthenticati
         }
 
         for (CartProductModel cartProductModel : cartProductModelListInSession) {
-            cartProductModel.setUser(userService.getUserByEmail(authentication.getName()));
+            cartProductService.addItemToCart(cartProductModelListInDB, cartProductModel.getProduct(), cartProductModel.getAmount());
         }
 
         cartProductModelListInDB.addAll(cartProductModelListInSession);

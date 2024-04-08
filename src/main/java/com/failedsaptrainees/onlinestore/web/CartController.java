@@ -45,7 +45,7 @@ public class CartController {
         }
 
         model.addAttribute("cartProducts", cartItemsDTO);
-        return "cartView";
+        return "cart";
     }
 
     @GetMapping("/add/{id}")
@@ -62,6 +62,7 @@ public class CartController {
     {
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
         cartProductService.removeItemFromCart(cartList, productService.getProductByID(Math.toIntExact(product_id)));
+        System.out.println(cartList.size());
         cartProductService.saveCart(cartList, httpSession);
         return "redirect:/cart/";
     }

@@ -17,6 +17,12 @@ public class WebController {
         return "Hello World!";
     }
 
+    @RequestMapping("/contact")
+    public String contactus()
+    {
+        return "contact_us";
+    }
+
 
 
 }

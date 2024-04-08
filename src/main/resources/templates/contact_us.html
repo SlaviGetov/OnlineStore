@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+
+<head>
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/css/contact_us.css">
+    <div th:replace="~{fragments/head}"></div>
+</head>
+
+
+<body>
+
+<div class="navbar">
+    <div th:replace="~{fragments/navbar}"></div>
+</div>
+
+<div class="container">
+    <!-- Contact Information Section -->
+    <div class="contact-info">
+        <h2>Contact Us</h2>
+        <!-- Introduction paragraph -->
+        <p>
+            Thank you for your interest in Saptops!
+            We're here to assist you with any inquiries or concerns you may have.
+            Please fill out the form below and we'll get back to you as soon as possible.
+        </p>
+
+        <!-- Contact Navigation List -->
+        <ul class="contact-nav">
+
+            <!-- Phone Contact -->
+            <li>
+                <p>
+                    <a class="contact-link" href="tel:+123456789">
+                        <img src="../images/phone_icon.png" alt="Phone Icon" width="30px" height="30px"
+                        >+123456789
+                    </a>
+                </p>
+            </li>
+
+            <!-- Email Contact -->
+            <li>
+                <p>
+                    <a class="contact-link" href="mailto:info@example.com">
+                        <img src="../images/email_icon.png" alt="Email Icon" width="30px" height="30px"
+                        >info@example.com
+                    </a>
+                </p>
+            </li>
+
+            <!-- Address Contact -->
+            <li>
+                <p>
+                    <a class="contact-link" href="https://maps.app.goo.gl/N4gxLu66CgDTVWzJ7">
+                        <img src="../images/location_icon.png" alt="Address Icon" width="30px" height="30px"
+                        >"Sofia, Promishlena zona Hladilnika, Srebarna St 16"
+                    </a>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-form">
+        <h1>Contact Form</h1>
+        <!-- Form for users to fill out -->
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your Email">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your message here"></textarea>
+            <button type="submit" class="send-btn">Send</button>
+        </form>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map">
+        <!-- Google Map API Embedded -->
+        <iframe class="map-scr" width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen
+                src="https://www.google.com/maps/embed/v1/place?q=Example+Street&key=YOUR_API_KEY">
+        </iframe>
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

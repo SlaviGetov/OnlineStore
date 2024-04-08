@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-//TODO: Remove currentPrice as a field and use a method to get it. Calculate the current price in the method, taking in account any discounts. 
+//TODO: Remove currentPrice as a field and use a method to get it. Calculate the current price in the method, taking in account any discounts.
 
 @NoArgsConstructor
 @AllArgsConstructor
