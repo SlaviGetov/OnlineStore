@@ -1,0 +1,149 @@
+/* Set height of body and html to 100% and remove default margin and padding */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for cart and total sections */
+.container {
+    display: flex;
+    height: 100%;
+}
+
+/* Cart section takes 75% of the container width */
+.cart-section {
+    flex: 3;
+}
+
+/* Total section takes 25% of the container width */
+.total-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #5C8DFF; /* Background color */
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px; /* Rounded corners */
+    margin-left: 20px; /* Add some space between the sections */
+    height: 300px; /* Custom height */
+    margin-top: 3%;
+    margin-right: 10px;
+    text-align: center; /* Center align text */
+}
+
+/* Styling for total price section */
+.total-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* Styling for cart page */
+.cart-page {
+    padding: 0px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Add scrollbar if needed */
+}
+
+/* Styling for table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Styling for cart information */
+.cart-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Styling for table header */
+th {
+    text-align: center;
+    padding: 5px;
+    color: black;
+    background: #5C8DFF;
+    font-weight: bold;
+}
+
+/* Styling for table cells */
+td {
+    padding: 10px 5px;
+}
+
+/* Styling for input inside table cells */
+td input {
+    width: 40px;
+    height: 30px;
+    padding: 5px;
+}
+
+/* Styling for links inside table cells */
+td a {
+    color: #5C8DFF;
+    font-size: 12px;
+}
+
+/* Styling for images inside table cells */
+td img {
+    width: 200px;
+    height: 120px;
+    margin-right: 10px;
+}
+
+/* Styling for total price table */
+.total-price table {
+    border-top: 3px solid #5C8DFF;
+    width: 100%;
+    max-width: 370px;
+}
+
+/* Styling for payment button */
+.pay-btn button {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 150px;
+    height: 40px;
+    width: 200px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Styling for payment button on hover */
+.pay-btn button:hover {
+    background-color: #3b3b3b;
+    color: white;
+    border: 2px solid #3b3b3b;
+}
+
+/* Center align product price, quantity, and removal */
+td.product-price,
+td.product-quantity,
+td.product-removal {
+    text-align: center;
+}
+
+/* Styling for product cells */
+td.product {
+    width: 50%;
+}
+
+/* Font size adjustment for total section table */
+.total-section table {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Font size adjustment for product price and removal link */
+td.product-price,
+.removal-link {
+    font-size: 18px;
+}
