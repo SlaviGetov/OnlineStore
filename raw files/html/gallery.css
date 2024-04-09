@@ -1,0 +1,32 @@
+.laptop-card{
+    border: 1px solid rgba(12, 77, 182, 0.4);
+    border-radius: 10px;
+}
+
+.text-container {
+    border-top: 2px solid rgba(12, 77, 182, 0.7);
+}
+
+.price{
+    text-align: center;
+    font-size:1.3rem;
+    font-weight: bold;
+    font-style: italic;
+    color:rgb(5, 0, 1);
+}
+
+.sidebar{
+    position:sticky;
+    top:0;
+    align-self: flex-start;
+    border-right:1px solid rgba(0, 91, 238, 0.7);
+    height: 100vh;
+}
+
+.sidebar-header{
+    background-color: rgba(0, 91, 238, 0.7);
+}
+
+.sidebar-offer{
+    height:22%;
+}
