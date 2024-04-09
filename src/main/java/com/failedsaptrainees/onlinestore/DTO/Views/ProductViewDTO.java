@@ -4,9 +4,6 @@ import com.failedsaptrainees.onlinestore.models.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-
-//TODO: Use ModelMapper instead of manually mapping DTOs to Entities
-
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductViewDTO {

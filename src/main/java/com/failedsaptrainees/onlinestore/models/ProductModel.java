@@ -1,6 +1,7 @@
 package com.failedsaptrainees.onlinestore.models;
 
 import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
+import com.failedsaptrainees.onlinestore.exceptions.ProductException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,11 +35,15 @@ public class ProductModel {
     }
 
 
-    //TODO: Throw an exception if the minimum price is lower than the default price.
-    public ProductModel(String imageLink, String name, Double defaultPrice, Double minimumPrice, Long stockAmount)
-    {
+    public ProductModel(String imageLink, String name, Double defaultPrice, Double minimumPrice, Long stockAmount) throws ProductException {
         this.imageLink = imageLink;
         this.name = name;
+
+        if(minimumPrice > defaultPrice)
+        {
+            throw new ProductException("Minimum price cannot be higher than default price");
+        }
+
         this.defaultPrice = defaultPrice;
         this.minimumPrice = minimumPrice;
         this.stockAmount = stockAmount;

@@ -28,18 +28,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-    //TODO: Throw 404 error if product isn't found.
     @Override
-    public void updateProduct(ProductViewDTO productViewDTO)
+    public void updateProduct(ProductModel productModel)
     {
-        ProductModel productModel = productRepository.findById(productViewDTO.getId()).get();
-
-        productModel.setName(productViewDTO.getName());
-        productModel.setDefaultPrice(productViewDTO.getDefaultPrice());
-        productModel.setMinimumPrice(productViewDTO.getMinimumPrice());
-        productModel.setStockAmount(productViewDTO.getStockAmount());
-        productModel.setImageLink(productViewDTO.getImageLink());
-
         productRepository.save(productModel);
     }
 

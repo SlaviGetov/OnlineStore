@@ -1,5 +1,6 @@
 package com.failedsaptrainees.onlinestore.models;
 
+import com.failedsaptrainees.onlinestore.enums.Roles;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-//TODO: Implement a role hierarchy.
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "roles")
@@ -23,6 +23,12 @@ public class RoleModel {
     public RoleModel(String name) {
         this.name = name;
     }
+
+    public RoleModel(Roles role)
+    {
+        this.name = role.toString();
+    }
+
 
     public String getName() {
         return "ROLE_" + name;

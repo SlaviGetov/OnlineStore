@@ -21,7 +21,7 @@ table, th, td {
             <th>Actions</th>
         </tr>
 
-        <a th:href="@{/products/add}" sec:authorize="hasRole('ROLE_ADMIN')">ADD PRODUCT</a>
+        <a th:href="@{/products/add}" sec:authorize="hasRole('ROLE_EMPLOYEE')">ADD PRODUCT</a>
 
         <tr th:each="product: ${products}">
             <td th:text="${product.getName()}"></td>

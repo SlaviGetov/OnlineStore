@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String addProduct(Model model)
     {
         model.addAttribute("formUrl", "/products/add");
@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String addProductPost(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult, RedirectAttributes redirectAttrs)
     {
         productDTOValidator.validate(productDTO, bindingResult);
@@ -75,7 +75,7 @@ public class ProductController {
 
 
     @GetMapping("/update/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String updateProduct(@PathVariable("id") int id, Model model)
     {
         model.addAttribute("formUrl", "/products/update/" + id);
@@ -84,17 +84,37 @@ public class ProductController {
         return "productForm";
     }
 
+    //TODO: Send the made changes over to the view
     @PostMapping("/update/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String updateProductPost(@PathVariable("id") int id, @ModelAttribute ProductViewDTO productViewDTO)
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    public String updateProductPost(@PathVariable("id") Long id, @Valid @ModelAttribute ProductDTO productDTO,
+                                    BindingResult bindingResult,
+                                    Model model)
     {
-        productViewDTO.setId(Integer.toUnsignedLong(id));
-        productService.updateProduct(productViewDTO);
+
+        productDTOValidator.validate(productDTO, bindingResult);
+
+        if(bindingResult.hasErrors())
+        {
+            for (ObjectError allError : bindingResult.getAllErrors()) {
+                System.out.println(allError.getDefaultMessage());
+            }
+
+            model.addAttribute("errors", bindingResult.getAllErrors());
+
+            return "redirect:/products/update/"+id;
+        }
+
+        ModelMapper modelMapper = new ModelMapper();
+        ProductModel productModel = modelMapper.map(productDTO, ProductModel.class);
+        productModel.setId(id);
+
+        productService.updateProduct(productModel);
         return "redirect:/products";
     }
 
     @GetMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String deleteProduct(@PathVariable("id") int id)
     {
 

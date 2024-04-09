@@ -11,7 +11,7 @@ public interface OrderService {
 
     public void sendOrder(List<CartProductModel> cartList);
 
-    public void getOrdersByUser(UserModel user);
+    public List<OrderModel> getOrdersByUser(UserModel user);
 
     public List<OrderModel> getAllOrders();
 

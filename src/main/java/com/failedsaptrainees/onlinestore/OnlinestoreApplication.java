@@ -1,7 +1,6 @@
 package com.failedsaptrainees.onlinestore;
 
 import com.failedsaptrainees.onlinestore.Validators.ProductDTOValidator;
-import com.failedsaptrainees.onlinestore.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 @SpringBootApplication
 public class OnlinestoreApplication {
 
-	@Autowired
-	private RoleRepository roleRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(OnlinestoreApplication.class, args);
 	}

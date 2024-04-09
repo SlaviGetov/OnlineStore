@@ -51,10 +51,9 @@ public class OrderServiceImpl implements OrderService {
         orderProductRepository.flush();
     }
 
-    //TODO: Implement.
     @Override
-    public void getOrdersByUser(UserModel user) {
-
+    public List<OrderModel> getOrdersByUser(UserModel user) {
+        return orderRepository.findOrdersByUserModel(user);
     }
 
     @Override
