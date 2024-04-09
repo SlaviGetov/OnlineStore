@@ -10,7 +10,7 @@ public interface ProductService {
     public List<ProductViewDTO> getAllProducts();
     public void deleteProduct(ProductModel productModel);
     public void updateProduct(ProductViewDTO productViewDTO);
-    public void insertProduct(ProductViewDTO productViewDTO);
+    public void insertProduct(ProductModel productModel);
     public ProductModel getProductByID(int id);
 
 }

@@ -27,7 +27,6 @@ public class SecurityConfig  {
     @Autowired
     private AuthenticationSuccessListener authenticationSuccessListener;
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
@@ -59,7 +58,6 @@ public class SecurityConfig  {
     {
         return new BCryptPasswordEncoder();
     }
-
 
     public void configure(AuthenticationManagerBuilder builder) throws Exception{
 

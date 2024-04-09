@@ -16,6 +16,7 @@ public interface CartProductService {
     public void removeItemFromCart(List<CartProductModel> cartProductModels, ProductModel productModel);
     public void setItemAmount(List<CartProductModel> cartProductModels, ProductModel productModel, int amount);
     public boolean saveCart(List<CartProductModel> cartProductModels, HttpSession httpSession);
+    public void emptyCart(HttpSession httpSession);
 
     public List<ProductModel> getCartProducts(List<CartProductModel> cartProductModels);
 

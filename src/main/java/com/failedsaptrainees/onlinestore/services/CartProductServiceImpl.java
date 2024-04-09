@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -183,5 +184,18 @@ public class CartProductServiceImpl implements CartProductService {
     @Override
     public List<ProductModel> getCartProducts(List<CartProductModel> cartProductModels) {
         return cartProductModels.stream().map(CartProductModel::getProduct).toList();
+    }
+
+    @Override
+    public void emptyCart(HttpSession httpSession) {
+        List<CartProductModel> cartList = getCart(httpSession);
+
+        // Iterate over a copy to prevent ConcurrentModificationException.
+        Iterator<CartProductModel> cartListIterator = new ArrayList<CartProductModel>(cartList).iterator();
+
+        while (cartListIterator.hasNext()) {
+            CartProductModel cartProductModel = cartListIterator.next();
+            removeItemFromCart(cartList, cartProductModel.getProduct());
+        }
     }
 }

@@ -36,7 +36,6 @@ public class ProductServiceImpl implements ProductService{
 
         productModel.setName(productViewDTO.getName());
         productModel.setDefaultPrice(productViewDTO.getDefaultPrice());
-        productModel.setCurrentPrice(productViewDTO.getDefaultPrice());
         productModel.setMinimumPrice(productViewDTO.getMinimumPrice());
         productModel.setStockAmount(productViewDTO.getStockAmount());
         productModel.setImageLink(productViewDTO.getImageLink());
@@ -45,16 +44,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void insertProduct(ProductViewDTO productViewDTO) {
-        ProductModel productModel = new ProductModel();
-
-        productModel.setName(productViewDTO.getName());
-        productModel.setDefaultPrice(productViewDTO.getDefaultPrice());
-        productModel.setCurrentPrice(productViewDTO.getDefaultPrice());
-        productModel.setMinimumPrice(productViewDTO.getMinimumPrice());
-        productModel.setStockAmount(productViewDTO.getStockAmount());
-        productModel.setImageLink(productViewDTO.getImageLink());
-
+    public void insertProduct(ProductModel productModel) {
         productRepository.saveAndFlush(productModel);
     }
 

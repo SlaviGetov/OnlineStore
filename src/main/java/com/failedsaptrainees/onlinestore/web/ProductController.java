@@ -1,14 +1,23 @@
 package com.failedsaptrainees.onlinestore.web;
 
+import com.failedsaptrainees.onlinestore.DTO.Forms.ProductDTO;
 import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
+import com.failedsaptrainees.onlinestore.Validators.ProductDTOValidator;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.services.ProductService;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/products")
@@ -16,6 +25,10 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductDTOValidator productDTOValidator;
+
 
     @GetMapping("")
     public ModelAndView getProducts()
@@ -37,10 +50,26 @@ public class ProductController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String addProductPost(@ModelAttribute ProductViewDTO productViewDTO)
+    public String addProductPost(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult, RedirectAttributes redirectAttrs)
     {
-        productViewDTO.setCurrentPrice(productViewDTO.getDefaultPrice());
-        productService.insertProduct(productViewDTO);
+        productDTOValidator.validate(productDTO, bindingResult);
+
+        if(bindingResult.hasErrors())
+        {
+            for (ObjectError allError : bindingResult.getAllErrors()) {
+                System.out.println(allError.getDefaultMessage());
+            }
+
+            redirectAttrs.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttrs.addFlashAttribute("product", productDTO);
+
+            return "redirect:/products/add";
+        }
+
+        ModelMapper modelMapper = new ModelMapper();
+        ProductModel productModel = (ProductModel) modelMapper.map(productDTO, ProductModel.class);
+        productService.insertProduct(productModel);
+
         return "redirect:/products";
     }
 

@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+//TODO: Implement a role hierarchy.
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "roles")

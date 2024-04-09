@@ -8,8 +8,6 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-//TODO: Remove currentPrice as a field and use a method to get it. Calculate the current price in the method, taking in account any discounts.
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "products")
@@ -20,7 +18,6 @@ public class ProductModel {
     private Long id;
     private String imageLink;
     private String name;
-    private Double currentPrice;
     private Double defaultPrice;
     private Double minimumPrice;
     private Long stockAmount;
@@ -29,12 +26,24 @@ public class ProductModel {
         ProductViewDTO productViewDTO = new ProductViewDTO(
                 id,
                 name,
-                currentPrice,
+                getCurrentPrice(),
                 defaultPrice
         );
 
         return productViewDTO;
     }
+
+
+    //TODO: Throw an exception if the minimum price is lower than the default price.
+    public ProductModel(String imageLink, String name, Double defaultPrice, Double minimumPrice, Long stockAmount)
+    {
+        this.imageLink = imageLink;
+        this.name = name;
+        this.defaultPrice = defaultPrice;
+        this.minimumPrice = minimumPrice;
+        this.stockAmount = stockAmount;
+    }
+
 
     public Long getId() {
         return id;
@@ -60,12 +69,11 @@ public class ProductModel {
         this.name = name;
     }
 
-    public Double getCurrentPrice() {
-        return currentPrice;
-    }
 
-    public void setCurrentPrice(Double currentPrice) {
-        this.currentPrice = currentPrice;
+    // TODO: Calculate the current price based on any discounts which are currently active for this product.
+    // Make sure the new price doesn't drop under the minimum price.
+    public Double getCurrentPrice() {
+        return defaultPrice;
     }
 
     public Double getDefaultPrice() {

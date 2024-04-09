@@ -14,6 +14,10 @@ table, th, td {
 
 </style>
 
+    <div th:each="error : ${errors}">
+        <p th:text="${error.getDefaultMessage()}"></p>
+    </div>
+
     <form th:action="${formUrl}" method="POST">
         <input type="text" name="name" placeholder="Product Name" th:value ="${product?.getName()}"><br>
         <input type="number" name="defaultPrice" placeholder="Product Default Price" th:value="${product?.getDefaultPrice()}"><br>

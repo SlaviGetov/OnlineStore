@@ -15,6 +15,10 @@
         <div th:replace="~{fragments/navbar}"></div>
     </div>
 
+    <div th:if="${success != null}">
+        <p th:text="${success}"></p>
+    </div>
+
     <div class="container">
         <div class="cart-section">
             <!-- Shopping cart items -->
