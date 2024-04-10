@@ -16,6 +16,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  background-color: #5C8DFF;
 }
 
 /* Container styles */
@@ -138,12 +139,12 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: gray;
+  background: #5C8DFF;
 }
 
 /* Button hover styles */
 .form button:hover {
-  background: rgb(0, 0, 0);
+  background: #0c54fd;
 }
 
 /* Responsive styles */
@@ -159,10 +160,9 @@ body {
 /* Login styles */
 .login-link {
   display: block;
-  font-weight: bold;
   font-size: 14px;
   text-align: center;
-  color: gray;
+  color: blue;
   margin-top: 20px;
   transition: color 0.3s ease;
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/cart.css">
+    <div th:replace="~{fragments/head}"></div>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div th:replace="~{fragments/navbar}"></div>
+    </div>
+
+    <div class="container">
+        <div class="cart-section">
+            <!-- Shopping cart items -->
+            <div class="small-container cart-page">
+                <!-- Cart items table -->
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    <!-- Cart items rows -->
+                    <tr th:each="cartProducts: ${cartProducts}">
+                        <td>
+                            <div class="cart-info">
+                                <img th:src="${cartProducts.getImageUrl()}">
+                                <div class="product-name">
+                                    <p th:text="${cartProducts.getName()}"></p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="product-quantity"><input type="number" th:value="${cartProducts.getAmount()}"></td>
+                        <td class="product-removal"><a th:href="@{/cart/remove/{id}(id=${cartProducts.getProductId()})}">Remove</a></td>
+                        <td class="product-price" th:text="${cartProducts.getCurrentPrice()}"></td>
+                    </tr>
+
+                    <!-- Add more cart item rows here if needed -->
+                </table>
+            </div>
+        </div>
+
+        <div class="total-section">
+            <!-- Total price section -->
+            <div class="total-price">
+                <!-- Total price table -->
+                <table>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>1197 лв</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery:</td>
+                        <td>100 лв</td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td>1297 лв</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Proceed to Pay button -->
+            <div class="pay-btn">
+                <button>Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

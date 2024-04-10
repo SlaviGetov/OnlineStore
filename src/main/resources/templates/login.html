@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 
 <body style="background-color: gray;">
     <section class="container">
+        <p class="text-center text-danger" th:text="${error}"></p>
         <header class="title">Login Form</header>
-        <form action="#" class="form">
+        <form th:action="@{/user/login}" class="form" method="post">
             <!-- Email Address -->
             <div class="input-box">
-                <input type="text" required>
+                <input type="text" required name="email">
                 <label>Email Address</label>
             </div>
 
             <!-- Password -->
             <div class="input-box">
-                <input type="password" required>
+                <input type="password" name="password" required>
                 <label>Password</label>
             </div>
 
@@ -39,7 +40,7 @@
 
             <!-- Signup Link -->
             <div class="signup-link">Not a member? 
-                <a href="registration.html">Signup now</a>
+                <a th:href="@{/user/register}">Signup now</a>
             </div>
 
         </form>

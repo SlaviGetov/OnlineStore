@@ -16,7 +16,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: gray; /* Set background color */
+  background-color: #5C8DFF; /* Set background color */
 }
 
 /* Container styles */
@@ -108,7 +108,7 @@ body {
 }
 
 .pass-link a:hover {
-  color: rgb(0, 0, 0);
+  color: blue;
 }
 
 /* Submit button styles */
@@ -117,7 +117,7 @@ body {
   padding: 12px;
   font-size: 1rem;
   color: #fff;
-  background: gray;
+  background: #5C8DFF;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -125,7 +125,7 @@ body {
 }
 
 .form button:hover {
-  background: rgb(0, 0, 0);
+  background: #0c54fd;
 }
 
 /* Signup link styles */
@@ -136,7 +136,7 @@ body {
 }
 
 .signup-link a {
-  color: gray;
+  color: blue;
   text-decoration: underline;
 }
 

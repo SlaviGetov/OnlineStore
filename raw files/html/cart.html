@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/raw files/css/cart.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="cart-section">
+            <!-- Shopping cart items -->
+            <div class="small-container cart-page">
+                <!-- Cart items table -->
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    <!-- Cart items rows -->
+                    <tr>
+                        <td>
+                            <div class="cart-info">
+                                <img src="/raw files/images/place_holder_img.png">
+                                <div class="product-name">
+                                    <p>Laptop</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="product-quantity"><input type="number" value="1"></td>
+                        <td class="product-removal"><a class="removal-link" href="/">Remove</a></td>
+                        <td class="product-price">399 лв</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="cart-info">
+                                <img src="/raw files/images/place_holder_img.png">
+                                <div class="product-name">
+                                    <p>Laptop</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="product-quantity"><input type="number" value="1"></td>
+                        <td class="product-removal"><a class="removal-link" href="/">Remove</a></td>
+                        <td class="product-price">399 лв</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="cart-info">
+                                <img src="/raw files/images/place_holder_img.png">
+                                <div class="product-name">
+                                    <p>Laptop</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="product-quantity"><input type="number" value="1"></td>
+                        <td class="product-removal"><a class="removal-link" href="/">Remove</a></td>
+                        <td class="product-price">399 лв</td>
+                    </tr>
+                    <!-- Add more cart item rows here if needed -->
+                </table>
+            </div>
+        </div>
+
+        <div class="total-section">
+            <!-- Total price section -->
+            <div class="total-price">
+                <!-- Total price table -->
+                <table>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>1197 лв</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery:</td>
+                        <td>100 лв</td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td>1297 лв</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Proceed to Pay button -->
+            <div class="pay-btn">
+                <button>Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
