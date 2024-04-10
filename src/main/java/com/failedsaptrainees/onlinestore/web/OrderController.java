@@ -2,6 +2,7 @@ package com.failedsaptrainees.onlinestore.web;
 
 
 import com.failedsaptrainees.onlinestore.DTO.Views.OrderViewDTO;
+import com.failedsaptrainees.onlinestore.exceptions.OrderException;
 import com.failedsaptrainees.onlinestore.models.CartProductModel;
 import com.failedsaptrainees.onlinestore.models.OrderModel;
 import com.failedsaptrainees.onlinestore.models.OrderProductModel;
@@ -36,10 +37,14 @@ public class OrderController {
     {
 
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
-        orderService.sendOrder(cartList);
-        cartProductService.emptyCart(httpSession);
-
-        redirectAttributes.addFlashAttribute("success", "Your order has been placed successfully!");
+        try{
+            orderService.sendOrder(cartList);
+            cartProductService.emptyCart(httpSession);
+            redirectAttributes.addFlashAttribute("success", "Your order has been placed successfully!");
+        } catch (OrderException orderException)
+        {
+            redirectAttributes.addFlashAttribute("error", "One or more items in your cart aren't in stock!");
+        }
 
         return "redirect:/cart";
     }

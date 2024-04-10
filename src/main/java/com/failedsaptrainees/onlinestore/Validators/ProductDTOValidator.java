@@ -21,7 +21,7 @@ public class ProductDTOValidator implements Validator {
         try{
             if(productDTO.getMinimumPrice() > productDTO.getDefaultPrice())
             {
-                errors.rejectValue("minimumPrice", "minPriceHigh", "The minimum price needs to be higher or equal to the default price.");
+                errors.rejectValue("minimumPrice", "minPriceHigh", "The minimum price needs to be lower than or equal to the default price.");
             }
         } catch (NullPointerException e)
         {

@@ -3,6 +3,7 @@ package com.failedsaptrainees.onlinestore.web;
 import com.failedsaptrainees.onlinestore.DTO.Forms.ProductDTO;
 import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
 import com.failedsaptrainees.onlinestore.Validators.ProductDTOValidator;
+import com.failedsaptrainees.onlinestore.exceptions.ProductException;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.services.ProductService;
 import jakarta.validation.Valid;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -35,7 +39,14 @@ public class ProductController {
     {
 
         ModelAndView modelAndView = new ModelAndView("productList");
-        modelAndView.addObject("products", productService.getAllProducts());
+
+        List<ProductViewDTO> productViewDTOS = new ArrayList<>();
+
+        for (ProductModel product : productService.getAllProducts()) {
+            productViewDTOS.add(new ProductViewDTO(product, productService.getProductCurrentPrice(product)));
+        }
+
+        modelAndView.addObject("products", productViewDTOS);
 
         return modelAndView;
     }
@@ -76,15 +87,15 @@ public class ProductController {
 
     @GetMapping("/update/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String updateProduct(@PathVariable("id") int id, Model model)
-    {
+    public String updateProduct(@PathVariable("id") int id, Model model) throws ProductException {
+
+        ModelMapper modelMapper = new ModelMapper();
         model.addAttribute("formUrl", "/products/update/" + id);
-        model.addAttribute("product", new ProductViewDTO(productService.getProductByID(id)));
+        model.addAttribute("product", modelMapper.map(productService.getProductByID(id), ProductViewDTO.class));
 
         return "productForm";
     }
 
-    //TODO: Send the made changes over to the view
     @PostMapping("/update/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String updateProductPost(@PathVariable("id") Long id, @Valid @ModelAttribute ProductDTO productDTO,
@@ -102,7 +113,14 @@ public class ProductController {
 
             model.addAttribute("errors", bindingResult.getAllErrors());
 
-            return "redirect:/products/update/"+id;
+            ModelMapper modelMapper = new ModelMapper();
+            ProductViewDTO productViewDTO = modelMapper.map(productDTO, ProductViewDTO.class);
+            productViewDTO.setId(id);
+            model.addAttribute("formUrl", "/products/update/" + id);
+
+            model.addAttribute("product", productViewDTO);
+
+            return "productForm";
         }
 
         ModelMapper modelMapper = new ModelMapper();
@@ -115,8 +133,7 @@ public class ProductController {
 
     @GetMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String deleteProduct(@PathVariable("id") int id)
-    {
+    public String deleteProduct(@PathVariable("id") int id) throws ProductException {
 
         ProductModel productModel = productService.getProductByID(id);
         productService.deleteProduct(productModel);

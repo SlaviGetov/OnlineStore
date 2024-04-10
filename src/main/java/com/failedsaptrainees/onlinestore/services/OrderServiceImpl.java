@@ -1,11 +1,13 @@
 package com.failedsaptrainees.onlinestore.services;
 
+import com.failedsaptrainees.onlinestore.exceptions.OrderException;
 import com.failedsaptrainees.onlinestore.models.CartProductModel;
 import com.failedsaptrainees.onlinestore.models.OrderModel;
 import com.failedsaptrainees.onlinestore.models.OrderProductModel;
 import com.failedsaptrainees.onlinestore.models.UserModel;
 import com.failedsaptrainees.onlinestore.repositories.OrderProductRepository;
 import com.failedsaptrainees.onlinestore.repositories.OrderRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -23,32 +25,45 @@ public class OrderServiceImpl implements OrderService {
     private OrderProductRepository orderProductRepository;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private UserService userService;
 
+    @Transactional
     @Override
-    public void sendOrder(List<CartProductModel> cartList) {
+    public void sendOrder(List<CartProductModel> cartList) throws OrderException {
 
         UserModel userModel = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        for (CartProductModel cartItem : cartList) {
+            if(cartItem.getProduct().getStockAmount() < cartItem.getAmount())
+            {
+                throw new OrderException("One ore more products in your basket is not in stock!");
+            }
+        }
 
         OrderModel orderModel = new OrderModel(
                 userModel,
                 LocalDateTime.now()
         );
 
-        orderRepository.saveAndFlush(orderModel);
+        orderRepository.save(orderModel);
 
         for (CartProductModel cartItem : cartList) {
+
+            cartItem.getProduct().setStockAmount(cartItem.getProduct().getStockAmount() - cartItem.getAmount());
+            productService.updateProduct(cartItem.getProduct());
+
             OrderProductModel orderProductModel = new OrderProductModel(
                     orderModel,
                     cartItem.getProduct(),
                     cartItem.getAmount(),
-                    cartItem.getProduct().getCurrentPrice()
+                    productService.getProductCurrentPrice(cartItem.getProduct())
             );
 
             orderProductRepository.save(orderProductModel);
         }
-
-        orderProductRepository.flush();
     }
 
     @Override

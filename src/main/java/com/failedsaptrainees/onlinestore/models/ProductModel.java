@@ -2,12 +2,15 @@ package com.failedsaptrainees.onlinestore.models;
 
 import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
 import com.failedsaptrainees.onlinestore.exceptions.ProductException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.failedsaptrainees.onlinestore.services.DiscountService;
+import com.failedsaptrainees.onlinestore.services.DiscountServiceImpl;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,18 +25,6 @@ public class ProductModel {
     private Double defaultPrice;
     private Double minimumPrice;
     private Long stockAmount;
-
-    public ProductViewDTO getProductViewDTO(){
-        ProductViewDTO productViewDTO = new ProductViewDTO(
-                id,
-                name,
-                getCurrentPrice(),
-                defaultPrice
-        );
-
-        return productViewDTO;
-    }
-
 
     public ProductModel(String imageLink, String name, Double defaultPrice, Double minimumPrice, Long stockAmount) throws ProductException {
         this.imageLink = imageLink;
@@ -72,13 +63,6 @@ public class ProductModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    // TODO: Calculate the current price based on any discounts which are currently active for this product.
-    // Make sure the new price doesn't drop under the minimum price.
-    public Double getCurrentPrice() {
-        return defaultPrice;
     }
 
     public Double getDefaultPrice() {

@@ -43,7 +43,7 @@
                         </td>
                         <td class="product-quantity"><input type="number" th:value="${cartProducts.getAmount()}"></td>
                         <td class="product-removal"><a th:href="@{/cart/remove/{id}(id=${cartProducts.getProductId()})}">Remove</a></td>
-                        <td class="product-price" th:text="${cartProducts.getCurrentPrice()}"></td>
+                        <td class="product-price" th:text="${cartProducts.getAmount() * cartProducts.getCurrentPrice()}"></td>
                     </tr>
 
                     <!-- Add more cart item rows here if needed -->

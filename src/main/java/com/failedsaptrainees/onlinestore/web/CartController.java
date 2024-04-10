@@ -1,6 +1,7 @@
 package com.failedsaptrainees.onlinestore.web;
 
 import com.failedsaptrainees.onlinestore.DTO.Views.CartViewDTO;
+import com.failedsaptrainees.onlinestore.exceptions.ProductException;
 import com.failedsaptrainees.onlinestore.models.CartProductModel;
 import com.failedsaptrainees.onlinestore.services.CartProductServiceImpl;
 import com.failedsaptrainees.onlinestore.services.ProductService;
@@ -34,13 +35,20 @@ public class CartController {
     {
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
 
+        for (CartProductModel cartProduct : new ArrayList<>(cartList)) {
+            if(cartProduct.getAmount() > cartProduct.getProduct().getStockAmount())
+            {
+                cartProductService.setItemAmount(cartList, cartProduct.getProduct(), Math.toIntExact(cartProduct.getProduct().getStockAmount()));
+            }
+        }
+
         List<CartViewDTO> cartItemsDTO = new ArrayList<>();
         for (CartProductModel cartProductModel : cartList) {
             cartItemsDTO.add(new CartViewDTO(
                     cartProductModel.getProduct().getImageLink(),
                     cartProductModel.getProduct().getId(),
                     cartProductModel.getProduct().getName(),
-                    cartProductModel.getProduct().getCurrentPrice(),
+                    productService.getProductCurrentPrice(cartProductModel.getProduct()),
                     cartProductModel.getAmount()
             ));
         }
@@ -50,8 +58,7 @@ public class CartController {
     }
 
     @GetMapping("/add/{id}")
-    public String addProductToCart(@PathVariable(name = "id") Long product_id, HttpSession httpSession)
-    {
+    public String addProductToCart(@PathVariable(name = "id") Long product_id, HttpSession httpSession) throws ProductException {
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
         cartProductService.addItemToCart(cartList, productService.getProductByID(Math.toIntExact(product_id)));
         cartProductService.saveCart(cartList, httpSession);
@@ -59,8 +66,7 @@ public class CartController {
     }
 
     @GetMapping("/remove/{id}")
-    public String removeProductFromCart(@PathVariable(name="id") Long product_id, HttpSession httpSession)
-    {
+    public String removeProductFromCart(@PathVariable(name="id") Long product_id, HttpSession httpSession) throws ProductException {
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
         cartProductService.removeItemFromCart(cartList, productService.getProductByID(Math.toIntExact(product_id)));
         cartProductService.saveCart(cartList, httpSession);

@@ -78,15 +78,11 @@ public class ProductViewDTO {
         this.defaultPrice = defaultPrice;
     }
 
-    public ProductViewDTO(ProductModel productModel)
+    public ProductViewDTO(ProductModel productModel, Double currentPrice)
     {
-        this.id = productModel.getId();
-        this.name = productModel.getName();
-        this.currentPrice = productModel.getCurrentPrice();
-        this.defaultPrice = productModel.getDefaultPrice();
-        this.minimumPrice = productModel.getMinimumPrice();
-        this.stockAmount = productModel.getStockAmount();
-        this.imageLink = productModel.getImageLink();
+        this(productModel.getId(), productModel.getName(), currentPrice, productModel.getDefaultPrice());
     }
+
+
 
 }
