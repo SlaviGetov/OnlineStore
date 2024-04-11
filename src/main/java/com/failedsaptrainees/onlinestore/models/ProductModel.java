@@ -21,6 +21,8 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String imageLink;
+    @ManyToOne
+    private CategoryModel category;
     private String name;
     private Double defaultPrice;
     private Double minimumPrice;

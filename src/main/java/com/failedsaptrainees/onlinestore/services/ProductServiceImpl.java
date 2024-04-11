@@ -1,6 +1,7 @@
 package com.failedsaptrainees.onlinestore.services;
 
 import com.failedsaptrainees.onlinestore.exceptions.ProductException;
+import com.failedsaptrainees.onlinestore.models.CategoryModel;
 import com.failedsaptrainees.onlinestore.models.DiscountModel;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.repositories.ProductRepository;
@@ -23,8 +24,7 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductModel> getAllProducts() {
         return productRepository.findAll();
     }
-
-
+    
     @Override
     public void updateProduct(ProductModel productModel)
     {
@@ -73,5 +73,10 @@ public class ProductServiceImpl implements ProductService{
         }
 
         return newPrice;
+    }
+
+    @Override
+    public List<ProductModel> getAllProductsByCategory(CategoryModel category) {
+        return productRepository.findAllProductsByCategory(category);
     }
 }
