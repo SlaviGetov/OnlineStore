@@ -1,13 +1,14 @@
 package com.failedsaptrainees.onlinestore.services;
 
+import com.failedsaptrainees.onlinestore.exceptions.DiscountException;
 import com.failedsaptrainees.onlinestore.models.DiscountModel;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.repositories.DiscountRepository;
-import com.failedsaptrainees.onlinestore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DiscountServiceImpl implements DiscountService {
@@ -45,5 +46,14 @@ public class DiscountServiceImpl implements DiscountService {
     public void setDiscountActive(DiscountModel discountModel, boolean isActive) {
         discountModel.setActive(isActive);
         discountRepository.saveAndFlush(discountModel);
+    }
+
+    @Override
+    public DiscountModel getDiscountById(Long id) throws DiscountException {
+        Optional<DiscountModel> discountModel = discountRepository.findById(id);
+        if(discountModel.isEmpty())
+            throw new DiscountException("Discount not found!");
+
+        return discountModel.get();
     }
 }

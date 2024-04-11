@@ -1,5 +1,6 @@
 package com.failedsaptrainees.onlinestore.services;
 
+import com.failedsaptrainees.onlinestore.exceptions.DiscountException;
 import com.failedsaptrainees.onlinestore.models.DiscountModel;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 
@@ -13,5 +14,6 @@ public interface DiscountService {
     public List<DiscountModel> getDiscountsForProduct(ProductModel product, boolean isActive);
     public void addDiscount(DiscountModel discount);
     public void setDiscountActive(DiscountModel discountModel, boolean isActive);
+    public DiscountModel getDiscountById(Long id) throws DiscountException;
 
 }
