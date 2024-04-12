@@ -29,6 +29,7 @@ public class RoleModel {
         this.name = role.toString();
     }
 
+    public String getRoleName() { return name; };
 
     public String getName() {
         return "ROLE_" + name;

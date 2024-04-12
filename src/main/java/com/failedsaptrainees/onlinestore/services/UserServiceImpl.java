@@ -5,8 +5,12 @@ import com.failedsaptrainees.onlinestore.enums.Roles;
 import com.failedsaptrainees.onlinestore.models.UserModel;
 import com.failedsaptrainees.onlinestore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -43,5 +47,25 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserModel getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public UserModel getUserById(Long id) throws UsernameNotFoundException {
+
+        Optional<UserModel> userModel = userRepository.findById(id);
+        if(userModel.isEmpty())
+            throw new UsernameNotFoundException("The specified user cannot be found!");
+
+        return userModel.get();
+    }
+
+    @Override
+    public void updateUser(UserModel userModel) {
+        userRepository.saveAndFlush(userModel);
+    }
+
+    @Override
+    public List<UserModel> getAllUsers() {
+        return userRepository.findAll();
     }
 }

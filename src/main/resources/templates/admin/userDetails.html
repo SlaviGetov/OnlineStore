@@ -1,0 +1,20 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<th:block th:fragment="details(url)" th:object="${userDetailsViewDTO}">
+    <form method="post" th:action="${url}">
+        <input type="text" placeholder="User name" th:field="${userDetailsViewDTO.fullName}" name="fullName"><br>
+        <input type="text" placeholder="Set new password, leave empty for no change" name="password"><br>
+        <select name="role">
+            <option th:each="role : ${T(com.failedsaptrainees.onlinestore.enums.Roles).values()}"
+                    th:value="${role}" th:text="${role}"
+                    th:selected="${role.toString()} == ${userDetailsViewDTO.getRole().getRoleName()}">
+            </option>
+        </select><br>
+
+
+
+        <input type="submit">
+    </form>
+</th:block>
+</html>
+
+

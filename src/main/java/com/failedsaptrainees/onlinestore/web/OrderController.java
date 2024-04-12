@@ -65,7 +65,7 @@ public class OrderController {
 
         model.addAttribute("orders", orderViewDTOS);
 
-        return "admin/viewOrders";
+        return "employee/viewOrders";
     }
 
 
