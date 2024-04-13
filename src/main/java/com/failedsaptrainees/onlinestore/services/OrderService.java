@@ -6,6 +6,9 @@ import com.failedsaptrainees.onlinestore.models.OrderModel;
 import com.failedsaptrainees.onlinestore.models.OrderProductModel;
 import com.failedsaptrainees.onlinestore.models.UserModel;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
@@ -17,5 +20,7 @@ public interface OrderService {
     public List<OrderModel> getAllOrders();
 
     public List<OrderProductModel> getOrderProducts(OrderModel orderModel);
+
+    public List<OrderModel> getAllOrdersBetweenDates(LocalDateTime fromDate, LocalDateTime toDate);
 
 }

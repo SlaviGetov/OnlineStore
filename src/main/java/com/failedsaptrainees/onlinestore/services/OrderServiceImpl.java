@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -79,5 +81,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderProductModel> getOrderProducts(OrderModel orderModel) {
         return orderProductRepository.findOrderProductsByOrderModel(orderModel);
+    }
+
+    @Override
+    public List<OrderModel> getAllOrdersBetweenDates(LocalDateTime fromDate, LocalDateTime toDate) {
+        return orderRepository.findOrdersByOrderDatetimeBetween(fromDate, toDate);
     }
 }

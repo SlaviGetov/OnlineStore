@@ -5,6 +5,7 @@ import com.failedsaptrainees.onlinestore.DTO.Views.UserDetailsViewDTO;
 import com.failedsaptrainees.onlinestore.enums.Roles;
 import com.failedsaptrainees.onlinestore.models.RoleModel;
 import com.failedsaptrainees.onlinestore.models.UserModel;
+import com.failedsaptrainees.onlinestore.security.SecurityConfig;
 import com.failedsaptrainees.onlinestore.services.RoleService;
 import com.failedsaptrainees.onlinestore.services.UserService;
 import jakarta.validation.Valid;
@@ -71,6 +72,12 @@ public class AdminController {
                 UserModel userModel = userService.getUserById(userId);
                 userModel.setFullName(userModel.getFullName());
                 userModel.setRole(roleService.getRole(Roles.valueOf(userDetailsFormDTO.getRole())));
+
+                if(!userDetailsFormDTO.getPassword().isEmpty())
+                {
+                    userModel.setPassword(SecurityConfig.passwordEncoder().encode(userDetailsFormDTO.getPassword()));
+                }
+
                 userService.updateUser(userModel);
             } catch (UsernameNotFoundException e)
             {

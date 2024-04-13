@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface UserService {
 
-    public void registerUser(RegistrationDTO registrationDTO);
+    public UserModel registerUser(RegistrationDTO registrationDTO);
     public void updateUser(UserModel userModel);
     public UserModel getUserById(Long id) throws UsernameNotFoundException;
-    public UserModel getUserByEmail(String email);
+    public UserModel getUserByEmail(String email) throws UsernameNotFoundException;
     public List<UserModel> getAllUsers();
 
 }

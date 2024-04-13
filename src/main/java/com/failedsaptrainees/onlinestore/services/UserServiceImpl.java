@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void registerUser(RegistrationDTO registrationDTO) {
+    public UserModel registerUser(RegistrationDTO registrationDTO) {
 
         Roles role = Roles.CLIENT;
 
@@ -42,11 +42,17 @@ public class UserServiceImpl implements UserService{
                 roleService.getRole(role)
         );
         userRepository.saveAndFlush(userModel);
+        return userModel;
     }
 
     @Override
     public UserModel getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        Optional<UserModel> userModel = userRepository.findByEmail(email);
+
+        if(userModel.isEmpty())
+            throw new UsernameNotFoundException("Email not found!");
+
+        return userModel.get();
     }
 
     @Override
