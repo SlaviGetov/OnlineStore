@@ -18,6 +18,4 @@ public interface CartProductService {
     public boolean saveCart(List<CartProductModel> cartProductModels, HttpSession httpSession);
     public void emptyCart(HttpSession httpSession);
 
-    public List<ProductModel> getCartProducts(List<CartProductModel> cartProductModels);
-
 }
