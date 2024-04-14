@@ -3,6 +3,7 @@ package com.failedsaptrainees.onlinestore.integrationTests;
 import com.failedsaptrainees.onlinestore.enums.Roles;
 import com.failedsaptrainees.onlinestore.exceptions.ProductException;
 import com.failedsaptrainees.onlinestore.models.CartProductModel;
+import com.failedsaptrainees.onlinestore.models.CategoryModel;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.models.UserModel;
 import com.failedsaptrainees.onlinestore.repositories.CartProductRepository;
@@ -68,7 +69,8 @@ class CartProductServiceTests {
                 "testName",
                 1000D,
                 100D,
-                10L
+                10L,
+                new CategoryModel()
         );
         mockProduct.setId(1L);
         mockCartList = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.failedsaptrainees.onlinestore.integrationTests;
 
 import com.failedsaptrainees.onlinestore.exceptions.ProductException;
+import com.failedsaptrainees.onlinestore.models.CategoryModel;
 import com.failedsaptrainees.onlinestore.models.DiscountModel;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.repositories.ProductRepository;
@@ -23,8 +24,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class ProductServiceTests {
@@ -39,10 +39,18 @@ public class ProductServiceTests {
     private DiscountService discountService;
 
     private List<ProductModel> productList;
+    private ProductModel mockProduct;
 
     @BeforeEach
-    public void setup()
-    {
+    public void setup() throws ProductException {
+        mockProduct = new ProductModel(
+            "testLink",
+            "testName",
+            1000D,
+            100D,
+            10L,
+            new CategoryModel()
+        );
         productList = new ArrayList<>();
         when(productRepository.findAll()).thenReturn(productList);
         when(productRepository.saveAndFlush(any(ProductModel.class))).then((answer) -> {
@@ -52,16 +60,10 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void insertProduct_inserts_correctly() throws ProductException {
-        ProductModel productModel = new ProductModel(
-                "testLink",
-                "testName",
-                1000D,
-                100D,
-                10L
-        );
+    public void insertProduct_inserts_correctly() {
 
-        productService.insertProduct(productModel);
+
+        productService.insertProduct(mockProduct);
         verify(productRepository).saveAndFlush(any());
 
         ProductModel resultProduct = productList.get(0);
@@ -80,60 +82,41 @@ public class ProductServiceTests {
                     "",
                     10D,
                     100D,
-                    10L
+                    10L,
+                    new CategoryModel()
             );
         });
     }
 
     @Test
-    public void calculate_productPrice_whenNotDiscounted() throws ProductException {
-        ProductModel productModel = new ProductModel(
-                "testLink",
-                "testName",
-                1000D,
-                100D,
-                10L
-        );
+    public void calculate_productPrice_whenNotDiscounted() {
 
-        when(discountService.getDiscountsForProduct(productModel, true)).thenReturn(
+        when(discountService.getDiscountsForProduct(mockProduct, true)).thenReturn(
                 Collections.emptyList()
         );
 
-        assertEquals(productModel.getDefaultPrice(), productService.getProductCurrentPrice(productModel));
+        assertEquals(mockProduct.getDefaultPrice(), productService.getProductCurrentPrice(mockProduct));
     }
 
     @Test
-    public void calculate_productPrice_whenDiscounted() throws ProductException {
-        ProductModel productModel = new ProductModel(
-                "testLink",
-                "testName",
-                1000D,
-                100D,
-                10L
-        );
+    public void calculate_productPrice_whenDiscounted()  {
 
-        when(discountService.getDiscountsForProduct(productModel, true)).thenReturn(
+        when(discountService.getDiscountsForProduct(mockProduct, true)).thenReturn(
                 Arrays.asList(new DiscountModel("test", true, 0.5, null))
         );
 
-        assertEquals(500D, productService.getProductCurrentPrice(productModel));
+        assertEquals(mockProduct.getDefaultPrice() * 0.5, productService.getProductCurrentPrice(mockProduct));
     }
 
     @Test
-    public void calculate_productPrice_whenDiscountedUnderMinimum() throws ProductException {
-        ProductModel productModel = new ProductModel(
-                "testLink",
-                "testName",
-                1000D,
-                100D,
-                10L
-        );
+    public void calculate_productPrice_whenDiscountedUnderMinimum()  {
 
-        when(discountService.getDiscountsForProduct(productModel, true)).thenReturn(
+
+        when(discountService.getDiscountsForProduct(mockProduct, true)).thenReturn(
                 Arrays.asList(new DiscountModel("test", true, 1, null))
         );
 
-        assertEquals(productModel.getMinimumPrice(), productService.getProductCurrentPrice(productModel));
+        assertEquals(mockProduct.getMinimumPrice(), productService.getProductCurrentPrice(mockProduct));
     }
 
     @Test
