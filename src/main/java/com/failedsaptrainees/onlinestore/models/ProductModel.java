@@ -2,6 +2,7 @@ package com.failedsaptrainees.onlinestore.models;
 
 import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
 import com.failedsaptrainees.onlinestore.exceptions.ProductException;
+import com.failedsaptrainees.onlinestore.services.CategoryService;
 import com.failedsaptrainees.onlinestore.services.DiscountService;
 import com.failedsaptrainees.onlinestore.services.DiscountServiceImpl;
 import jakarta.persistence.*;
@@ -28,7 +29,7 @@ public class ProductModel {
     private Double minimumPrice;
     private Long stockAmount;
 
-    public ProductModel(String imageLink, String name, Double defaultPrice, Double minimumPrice, Long stockAmount) throws ProductException {
+    public ProductModel(String imageLink, String name, Double defaultPrice, Double minimumPrice, Long stockAmount, CategoryModel category) throws ProductException {
         this.imageLink = imageLink;
         this.name = name;
 
@@ -40,6 +41,7 @@ public class ProductModel {
         this.defaultPrice = defaultPrice;
         this.minimumPrice = minimumPrice;
         this.stockAmount = stockAmount;
+        this.category = category;
     }
 
 
@@ -89,5 +91,13 @@ public class ProductModel {
 
     public void setStockAmount(Long stockAmount) {
         this.stockAmount = stockAmount;
+    }
+
+    public CategoryModel getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryModel category) {
+        this.category = category;
     }
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface CategoryService {
 
     public List<CategoryModel> getAllCategories();
+    public CategoryModel getCategoryByName(String categoryName) throws CategoryException;
+    public CategoryModel getCategoryById(Long categoryId) throws CategoryException;
 }

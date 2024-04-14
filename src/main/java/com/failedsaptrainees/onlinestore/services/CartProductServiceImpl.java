@@ -165,7 +165,7 @@ public class CartProductServiceImpl implements CartProductService {
     }
 
     @Override
-    public boolean saveCart(List<CartProductModel> cartProductModels, HttpSession httpSession) {
+    public void saveCart(List<CartProductModel> cartProductModels, HttpSession httpSession) {
 
         if(AuthenticationChecker.isLoggedIn())
         {
@@ -178,7 +178,6 @@ public class CartProductServiceImpl implements CartProductService {
         {
             httpSession.setAttribute("cart", cartProductModels);
         }
-        return true;
     }
 
     @Override

@@ -30,7 +30,8 @@ public class ProductDTO {
     @NotEmpty(message = "An image link needs to be provided.")
     private String imageLink;
 
-
+    @NotEmpty(message = "You need to provide a category for the product")
+    private String category;
 
     public String getName() {
         return name;
@@ -50,5 +51,13 @@ public class ProductDTO {
 
     public String getImageLink() {
         return imageLink;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

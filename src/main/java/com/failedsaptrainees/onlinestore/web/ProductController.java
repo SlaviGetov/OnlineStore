@@ -3,10 +3,13 @@ package com.failedsaptrainees.onlinestore.web;
 import com.failedsaptrainees.onlinestore.DTO.Forms.ProductDTO;
 import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
 import com.failedsaptrainees.onlinestore.Validators.ProductDTOValidator;
+import com.failedsaptrainees.onlinestore.exceptions.CategoryException;
 import com.failedsaptrainees.onlinestore.exceptions.ProductException;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
+import com.failedsaptrainees.onlinestore.services.CategoryService;
 import com.failedsaptrainees.onlinestore.services.ProductService;
 import jakarta.validation.Valid;
+import lombok.NonNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -31,7 +35,17 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private ProductDTOValidator productDTOValidator;
+
+
+    @InitBinder
+    public void initBinder(@NonNull final WebDataBinder binder)
+    {
+        binder.addValidators(productDTOValidator);
+    }
 
 
     @GetMapping("")
@@ -56,15 +70,13 @@ public class ProductController {
     public String addProduct(Model model)
     {
         model.addAttribute("formUrl", "/products/add");
+        model.addAttribute("categoryList", categoryService.getAllCategories());
         return "productForm";
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String addProductPost(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult, RedirectAttributes redirectAttrs)
-    {
-        productDTOValidator.validate(productDTO, bindingResult);
-
+    public String addProductPost(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult, RedirectAttributes redirectAttrs) throws CategoryException {
         if(bindingResult.hasErrors())
         {
             for (ObjectError allError : bindingResult.getAllErrors()) {
@@ -79,6 +91,7 @@ public class ProductController {
 
         ModelMapper modelMapper = new ModelMapper();
         ProductModel productModel = (ProductModel) modelMapper.map(productDTO, ProductModel.class);
+        productModel.setCategory(categoryService.getCategoryByName(productDTO.getCategory()));
         productService.insertProduct(productModel);
 
         return "redirect:/products";
@@ -92,6 +105,7 @@ public class ProductController {
         ModelMapper modelMapper = new ModelMapper();
         model.addAttribute("formUrl", "/products/update/" + id);
         model.addAttribute("product", modelMapper.map(productService.getProductByID(id), ProductViewDTO.class));
+        model.addAttribute("categoryList", categoryService.getAllCategories());
 
         return "productForm";
     }
@@ -100,11 +114,7 @@ public class ProductController {
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String updateProductPost(@PathVariable("id") Long id, @Valid @ModelAttribute ProductDTO productDTO,
                                     BindingResult bindingResult,
-                                    Model model)
-    {
-
-        productDTOValidator.validate(productDTO, bindingResult);
-
+                                    Model model) throws CategoryException {
         if(bindingResult.hasErrors())
         {
             for (ObjectError allError : bindingResult.getAllErrors()) {
@@ -126,6 +136,7 @@ public class ProductController {
         ModelMapper modelMapper = new ModelMapper();
         ProductModel productModel = modelMapper.map(productDTO, ProductModel.class);
         productModel.setId(id);
+        productModel.setCategory(categoryService.getCategoryByName(productDTO.getCategory()));
 
         productService.updateProduct(productModel);
         return "redirect:/products";
