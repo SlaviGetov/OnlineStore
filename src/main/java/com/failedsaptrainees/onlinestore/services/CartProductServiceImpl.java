@@ -161,6 +161,7 @@ public class CartProductServiceImpl implements CartProductService {
         }
 
         cartProduct.get().setAmount(amount);
+        cartProductRepository.saveAndFlush(cartProduct.get());
 
     }
 

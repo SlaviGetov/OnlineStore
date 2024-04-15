@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Products</title>
+    <div th:replace="~{fragments/head}"></div>
 </head>
 <body>
+
+<div class="navbar">
+    <div th:replace="~{fragments/navbar}"></div>
+</div>
 
 <style>
 table, th, td {

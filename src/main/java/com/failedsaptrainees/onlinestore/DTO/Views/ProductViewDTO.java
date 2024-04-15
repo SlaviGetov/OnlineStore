@@ -4,7 +4,6 @@ import com.failedsaptrainees.onlinestore.models.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
 public class ProductViewDTO {
 
@@ -71,16 +70,27 @@ public class ProductViewDTO {
         this.imageLink = imageLink;
     }
 
-    public ProductViewDTO(Long id, String name, Double currentPrice, Double defaultPrice) {
+    public ProductViewDTO(Long id, String name, Double currentPrice, Double defaultPrice, Double minimumPrice, Long stockAmount, String imageLink) {
         this.id = id;
         this.name = name;
         this.currentPrice = currentPrice;
         this.defaultPrice = defaultPrice;
+        this.minimumPrice = minimumPrice;
+        this.stockAmount = stockAmount;
+        this.imageLink = imageLink;
     }
 
     public ProductViewDTO(ProductModel productModel, Double currentPrice)
     {
-        this(productModel.getId(), productModel.getName(), currentPrice, productModel.getDefaultPrice());
+        this(
+                productModel.getId(),
+                productModel.getName(),
+                currentPrice,
+                productModel.getDefaultPrice(),
+                productModel.getMinimumPrice(),
+                productModel.getStockAmount(),
+                productModel.getImageLink()
+        );
     }
 
 

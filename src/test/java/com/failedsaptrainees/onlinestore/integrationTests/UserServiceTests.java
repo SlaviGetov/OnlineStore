@@ -2,6 +2,7 @@ package com.failedsaptrainees.onlinestore.integrationTests;
 
 import com.failedsaptrainees.onlinestore.DTO.Forms.RegistrationDTO;
 import com.failedsaptrainees.onlinestore.enums.Roles;
+import com.failedsaptrainees.onlinestore.exceptions.RegistrationException;
 import com.failedsaptrainees.onlinestore.models.RoleModel;
 import com.failedsaptrainees.onlinestore.models.UserModel;
 import com.failedsaptrainees.onlinestore.repositories.UserRepository;
@@ -60,7 +61,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void firstUser_gets_admin()
+    public void firstUser_gets_admin() throws RegistrationException
     {
         RegistrationDTO registrationDTO = new RegistrationDTO();
         registrationDTO.setEmail("test@mail.com");
@@ -80,7 +81,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void notFirstUser_gets_client()
+    public void notFirstUser_gets_client() throws RegistrationException
     {
         RegistrationDTO registrationDTO = new RegistrationDTO();
         registrationDTO.setEmail("test@mail.com");

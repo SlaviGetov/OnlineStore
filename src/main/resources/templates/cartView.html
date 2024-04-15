@@ -23,18 +23,21 @@ table, th, td {
             <th>Actions</th>
         </tr>
 
+        <form method="post" action="/cart/update">
         <tr th:each="cartProduct: ${cartProducts}">
             <th:block>
 
                 <td th:text="${cartProduct.getName()}"></td>
                 <td th:text="${cartProduct.getCurrentPrice()}"></td>
-                <td th:text="${cartProduct.getAmount()}"></td>
+                <td name="amount[]" th:text="${cartProduct.getAmount()}"></td>
                 <td th:text="${cartProduct.getAmount() * cartProduct.getCurrentPrice()}"></td>
                 <td>
                     <a th:href="@{/cart/remove/{id}(id=${cartProduct.getProductId()})}">Remove from cart</a>
                 </td>
             </th:block>
         </tr>
+            <input type="button">
+        </form>
 
     </table>
 </body>

@@ -5,26 +5,24 @@ import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
 import com.failedsaptrainees.onlinestore.Validators.ProductDTOValidator;
 import com.failedsaptrainees.onlinestore.exceptions.CategoryException;
 import com.failedsaptrainees.onlinestore.exceptions.ProductException;
+import com.failedsaptrainees.onlinestore.mappers.ProductMapper;
+import com.failedsaptrainees.onlinestore.models.CategoryModel;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.services.CategoryService;
 import com.failedsaptrainees.onlinestore.services.ProductService;
 import jakarta.validation.Valid;
-import lombok.NonNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -40,29 +38,41 @@ public class ProductController {
     @Autowired
     private ProductDTOValidator productDTOValidator;
 
-
-    @InitBinder
-    public void initBinder(@NonNull final WebDataBinder binder)
-    {
-        binder.addValidators(productDTOValidator);
-    }
+    @Autowired
+    private ProductMapper productMapper;
 
 
     @GetMapping("")
-    public ModelAndView getProducts()
+    public String getProducts(Model model)
     {
-
-        ModelAndView modelAndView = new ModelAndView("productList");
-
         List<ProductViewDTO> productViewDTOS = new ArrayList<>();
 
         for (ProductModel product : productService.getAllProducts()) {
             productViewDTOS.add(new ProductViewDTO(product, productService.getProductCurrentPrice(product)));
         }
 
-        modelAndView.addObject("products", productViewDTOS);
+        model.addAttribute("products", productViewDTOS);
 
-        return modelAndView;
+        return "productList";
+    }
+
+    @GetMapping("/category/{category_id}")
+    public String getProductsByCategory(@PathVariable(name = "category_id") Long categoryId, Model model) throws ChangeSetPersister.NotFoundException {
+        try {
+
+            CategoryModel category = categoryService.getCategoryById(categoryId);
+
+            List<ProductViewDTO> productViewDTOS = new ArrayList<>();
+
+            for (ProductModel product : productService.getAllProductsByCategory(category)) {
+                productViewDTOS.add(new ProductViewDTO(product, productService.getProductCurrentPrice(product)));
+            }
+
+            model.addAttribute("products", productViewDTOS);
+            return "productList";
+        } catch (CategoryException e) {
+            throw new ChangeSetPersister.NotFoundException();
+        }
     }
 
     @GetMapping("/add")
@@ -77,6 +87,8 @@ public class ProductController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String addProductPost(@Valid @ModelAttribute ProductDTO productDTO, BindingResult bindingResult, RedirectAttributes redirectAttrs) throws CategoryException {
+
+        productDTOValidator.validate(productDTO, bindingResult);
         if(bindingResult.hasErrors())
         {
             for (ObjectError allError : bindingResult.getAllErrors()) {
@@ -89,9 +101,8 @@ public class ProductController {
             return "redirect:/products/add";
         }
 
-        ModelMapper modelMapper = new ModelMapper();
-        ProductModel productModel = (ProductModel) modelMapper.map(productDTO, ProductModel.class);
-        productModel.setCategory(categoryService.getCategoryByName(productDTO.getCategory()));
+        ProductModel productModel = productMapper.getProductModelFromProductDTO(productDTO, categoryService.getCategoryByName(productDTO.getCategory()));
+
         productService.insertProduct(productModel);
 
         return "redirect:/products";
@@ -114,31 +125,24 @@ public class ProductController {
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String updateProductPost(@PathVariable("id") Long id, @Valid @ModelAttribute ProductDTO productDTO,
                                     BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes,
                                     Model model) throws CategoryException {
+
+        productDTOValidator.validate(productDTO, bindingResult);
         if(bindingResult.hasErrors())
         {
             for (ObjectError allError : bindingResult.getAllErrors()) {
                 System.out.println(allError.getDefaultMessage());
             }
 
-            model.addAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("product", productDTO);
 
-            ModelMapper modelMapper = new ModelMapper();
-            ProductViewDTO productViewDTO = modelMapper.map(productDTO, ProductViewDTO.class);
-            productViewDTO.setId(id);
-            model.addAttribute("formUrl", "/products/update/" + id);
-
-            model.addAttribute("product", productViewDTO);
-
-            return "productForm";
+            return "redirect:/products/update/"+id;
         }
 
-        ModelMapper modelMapper = new ModelMapper();
-        ProductModel productModel = modelMapper.map(productDTO, ProductModel.class);
-        productModel.setId(id);
-        productModel.setCategory(categoryService.getCategoryByName(productDTO.getCategory()));
-
-        productService.updateProduct(productModel);
+        ProductModel productModel = productMapper.getProductModelFromProductDTO(productDTO, categoryService.getCategoryByName(productDTO.getCategory()));
+        productService.updateProduct(productModel.getId(), productModel);
         return "redirect:/products";
     }
 

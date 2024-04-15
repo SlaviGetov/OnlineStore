@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en">
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-    <title>Edit user</title>
+    <title>Homepage</title>
     <div th:replace="~{fragments/head}"></div>
 </head>
 <body>
@@ -11,9 +11,7 @@
     <div th:replace="~{fragments/navbar}"></div>
 </div>
 
-<th:block th:replace="~{admin/userDetails :: details('/admin/edit/' + ${userId})}">
-</th:block>
-
+<h1>Welcome to SAPTOPS</h1>
 
 </body>
 </html>

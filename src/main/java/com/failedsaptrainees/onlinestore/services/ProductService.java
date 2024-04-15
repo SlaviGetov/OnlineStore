@@ -10,7 +10,7 @@ public interface ProductService {
 
     public List<ProductModel> getAllProducts();
     public void deleteProduct(ProductModel productModel);
-    public void updateProduct(ProductModel productModel);
+    public void updateProduct(Long id, ProductModel productModel);
     public void insertProduct(ProductModel productModel);
     public ProductModel getProductByID(int id) throws ProductException;
     public Double getProductCurrentPrice(ProductModel productModel);

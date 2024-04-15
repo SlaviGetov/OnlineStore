@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserService userService;
 
-    @Transactional
+
     @Override
     public void sendOrder(List<CartProductModel> cartList) throws OrderException {
 
@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
         for (CartProductModel cartItem : cartList) {
 
             cartItem.getProduct().setStockAmount(cartItem.getProduct().getStockAmount() - cartItem.getAmount());
-            productService.updateProduct(cartItem.getProduct());
+            productService.updateProduct(cartItem.getProduct().getId(), cartItem.getProduct());
 
             OrderProductModel orderProductModel = new OrderProductModel(
                     orderModel,

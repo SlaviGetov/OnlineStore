@@ -76,9 +76,11 @@ public class DiscountController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String editDiscount(@PathVariable(name = "id") Long discountId, Model model) throws DiscountException {
+    public String editDiscount(@PathVariable(name = "id") Long discountId, Model model)  {
 
         ModelMapper modelMapper = new ModelMapper();
+        try{
+
         DiscountModel discountModel = discountService.getDiscountById(discountId);
         model.addAttribute("discountDTO", modelMapper.map(discountModel, DiscountDTO.class));
         List<ProductViewDTO> productViewDTOS = new ArrayList<>();
@@ -91,6 +93,10 @@ public class DiscountController {
         model.addAttribute("discountId", discountId);
 
         return "discounts/editDiscount";
+        } catch (DiscountException e)
+        {
+            return "discounts/";
+        }
     }
 
     @PostMapping("/edit/{id}")
@@ -106,7 +112,7 @@ public class DiscountController {
         discountModel.setPercentageDiscount(discountDTO.getPercentageDiscount());
         discountModel.setActive(discountDTO.isActive());
 
-        discountService.addDiscount(discountModel);
+        discountService.updateDiscount(discountId, discountModel);
 
         return "redirect:/discounts/edit/" + discountId;
     }
@@ -124,7 +130,7 @@ public class DiscountController {
             if(!discountModel.getProducts().contains(productModel))
             {
                 discountModel.getProducts().add(productModel);
-                discountService.addDiscount(discountModel);
+                discountService.updateDiscount(discountId, discountModel);
             }
         } catch (NullPointerException | NumberFormatException | DiscountException | ProductException e)
         {
@@ -143,28 +149,12 @@ public class DiscountController {
             DiscountModel discountModel = discountService.getDiscountById(discountId);
             ProductModel productModel = productService.getProductByID(productId);
             discountModel.getProducts().remove(productModel);
-            discountService.addDiscount(discountModel);
+            discountService.updateDiscount(discountId, discountModel);
         } catch (DiscountException | ProductException e) {
             return "redirect:/discounts/edit/" + discountId;
         }
 
         return "redirect:/discounts/edit/" + discountId;
-    }
-    @GetMapping("/product/{id}")
-    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    @ResponseBody
-    public String getAllDiscountsForProduct(@PathVariable(name = "id") int id) throws ProductException {
-        ProductModel productModel =  productService.getProductByID(id);
-        List<DiscountModel> discounts = discountService.getDiscountsForProduct(productModel, true);
-        for (DiscountModel discount : discounts) {
-            System.out.println(discount.getPercentageDiscount());
-            System.out.println(discount.isActive());
-            for (ProductModel product : discount.getProducts()) {
-                System.out.println(product.getName());
-            }
-        }
-
-        return "getAllDiscountsForProduct";
     }
 
 }

@@ -2,6 +2,7 @@ package com.failedsaptrainees.onlinestore.services;
 
 import com.failedsaptrainees.onlinestore.DTO.Forms.RegistrationDTO;
 import com.failedsaptrainees.onlinestore.enums.Roles;
+import com.failedsaptrainees.onlinestore.exceptions.RegistrationException;
 import com.failedsaptrainees.onlinestore.models.UserModel;
 import com.failedsaptrainees.onlinestore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,18 @@ public class UserServiceImpl implements UserService{
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserModel registerUser(RegistrationDTO registrationDTO) {
+    public UserModel registerUser(RegistrationDTO registrationDTO) throws RegistrationException {
 
         Roles role = Roles.CLIENT;
 
         if(userRepository.count() == 0)
         {
             role = Roles.ADMIN;
+        }
+
+        if(userRepository.findByEmail(registrationDTO.getEmail()).isPresent())
+        {
+            throw new RegistrationException("This email is already taken!");
         }
 
         UserModel userModel = new UserModel(

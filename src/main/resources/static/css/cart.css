@@ -102,6 +102,12 @@ td img {
     max-width: 370px;
 }
 
+.pay-btn
+{
+    display: flex;
+    justify-content: center;
+}
+
 /* Styling for payment button */
 .pay-btn button {
     background-color: white;

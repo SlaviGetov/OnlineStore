@@ -26,8 +26,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void updateProduct(ProductModel productModel)
+    public void updateProduct(Long id, ProductModel productModel)
     {
+        productModel.setId(id);
         productRepository.save(productModel);
     }
 

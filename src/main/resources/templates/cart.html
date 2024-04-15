@@ -15,6 +15,12 @@
         <div th:replace="~{fragments/navbar}"></div>
     </div>
 
+    <div th:each="error_flash : ${errors_flash}">
+        <p th:text="${error_flash}"></p>
+    </div>
+
+    <th:block th:replace="~{fragments/errorAlerts}"></th:block>
+
     <div th:if="${success != null}">
         <p th:text="${success}"></p>
     </div>
@@ -24,6 +30,7 @@
             <!-- Shopping cart items -->
             <div class="small-container cart-page">
                 <!-- Cart items table -->
+                <form id="cartUpdate" method="post" action="/cart/update">
                 <table>
                     <tr>
                         <th>Product</th>
@@ -41,13 +48,15 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="product-quantity"><input type="number" th:value="${cartProducts.getAmount()}"></td>
+                        <td class="product-quantity"><input name="amounts[]" type="number" th:value="${cartProducts.getAmount()}"></td>
                         <td class="product-removal"><a th:href="@{/cart/remove/{id}(id=${cartProducts.getProductId()})}">Remove</a></td>
                         <td class="product-price" th:text="${cartProducts.getAmount() * cartProducts.getCurrentPrice()}"></td>
                     </tr>
 
                     <!-- Add more cart item rows here if needed -->
                 </table>
+                </form>
+
             </div>
         </div>
 
@@ -57,22 +66,17 @@
                 <!-- Total price table -->
                 <table>
                     <tr>
-                        <td>Subtotal:</td>
-                        <td>1197 лв</td>
-                    </tr>
-                    <tr>
-                        <td>Delivery:</td>
-                        <td>100 лв</td>
-                    </tr>
-                    <tr>
                         <td>Total:</td>
-                        <td>1297 лв</td>
+                        <td th:text="${totalSum}"></td>
                     </tr>
                 </table>
             </div>
             <!-- Proceed to Pay button -->
             <div class="pay-btn">
-                <button>Proceed to Checkout</button>
+                <form action="/order/send" method="get">
+                <button type="submit">Proceed to Checkout</button>
+                </form>
+                <button type="submit" form="cartUpdate">Refresh Cart</button>
             </div>
         </div>
     </div>

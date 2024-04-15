@@ -49,6 +49,12 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
+    public void updateDiscount(Long id, DiscountModel discount) {
+        discount.setId(id);
+        discountRepository.saveAndFlush(discount);
+    }
+
+    @Override
     public DiscountModel getDiscountById(Long id) throws DiscountException {
         Optional<DiscountModel> discountModel = discountRepository.findById(id);
         if(discountModel.isEmpty())

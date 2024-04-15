@@ -2,6 +2,7 @@ package com.failedsaptrainees.onlinestore.Validators;
 
 import com.failedsaptrainees.onlinestore.DTO.Forms.ProductDTO;
 import com.failedsaptrainees.onlinestore.exceptions.CategoryException;
+import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,11 +18,13 @@ public class ProductDTOValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return ProductDTO.class.equals(clazz);
+
+        return (ProductDTO.class.equals(clazz) || ProductModel.class.equals(clazz));
     }
 
     @Override
     public void validate(Object target, Errors errors) {
+
         ProductDTO productDTO = (ProductDTO) target;
 
         try{
