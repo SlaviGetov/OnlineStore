@@ -78,7 +78,7 @@ public class AdminController {
                     userModel.setPassword(SecurityConfig.passwordEncoder().encode(userDetailsFormDTO.getPassword()));
                 }
 
-                userService.updateUser(userModel);
+                userService.updateUser(userModel.getId(), userModel);
             } catch (UsernameNotFoundException e)
             {
                 return "redirect:/admin";

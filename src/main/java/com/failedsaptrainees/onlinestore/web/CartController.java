@@ -94,8 +94,11 @@ public class CartController {
         if(!bindingResult.hasErrors())
         {
             List<CartProductModel> cartList = cartProductService.getCart(httpSession);
-            for (int i = 0; i < cartUpdateDTO.getAmounts().length; i++) {
-                cartList.get(i).setAmount(cartUpdateDTO.getAmounts()[i]);
+            if(cartUpdateDTO.getAmounts() != null)
+            {
+                for (int i = 0; i < cartUpdateDTO.getAmounts().length; i++) {
+                    cartList.get(i).setAmount(cartUpdateDTO.getAmounts()[i]);
+                }
             }
             cartProductService.saveCart(cartList, httpSession);
         }

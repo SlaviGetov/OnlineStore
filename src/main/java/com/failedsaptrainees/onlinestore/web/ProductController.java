@@ -114,8 +114,9 @@ public class ProductController {
     public String updateProduct(@PathVariable("id") int id, Model model) throws ProductException {
 
         ModelMapper modelMapper = new ModelMapper();
+        ProductModel productModel = productService.getProductByID(id);
         model.addAttribute("formUrl", "/products/update/" + id);
-        model.addAttribute("product", modelMapper.map(productService.getProductByID(id), ProductViewDTO.class));
+        model.addAttribute("product", new ProductViewDTO(productModel, productService.getProductCurrentPrice(productModel)));
         model.addAttribute("categoryList", categoryService.getAllCategories());
 
         return "products/productForm";

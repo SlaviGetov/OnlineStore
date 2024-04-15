@@ -72,7 +72,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void updateUser(UserModel userModel) {
+    public void updateUser(Long id, UserModel userModel) {
+        userModel.setId(id);
         userRepository.saveAndFlush(userModel);
     }
 

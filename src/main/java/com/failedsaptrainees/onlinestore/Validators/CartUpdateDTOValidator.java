@@ -18,11 +18,14 @@ public class CartUpdateDTOValidator implements Validator {
 
         CartUpdateDTO cartUpdateDTO = (CartUpdateDTO) target;
 
-        for (int amount : cartUpdateDTO.getAmounts()) {
-            if(amount <= 0)
-            {
-                errors.rejectValue("amounts", "amountInvalid", "The amount of items needs to be 1 or more.");
-                return;
+        if(cartUpdateDTO.getAmounts() != null)
+        {
+            for (int amount : cartUpdateDTO.getAmounts()) {
+                if(amount <= 0)
+                {
+                    errors.rejectValue("amounts", "amountInvalid", "The amount of items needs to be 1 or more.");
+                    return;
+                }
             }
         }
 
