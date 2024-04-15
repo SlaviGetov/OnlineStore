@@ -72,7 +72,7 @@ public class CartController {
 
         model.addAttribute("cartProducts", cartItemsDTO);
         model.addAttribute("totalSum", totalSum);
-        return "cart";
+        return "cart/cart";
     }
 
     @GetMapping("/add/{id}")

@@ -53,7 +53,7 @@ public class ProductController {
 
         model.addAttribute("products", productViewDTOS);
 
-        return "productList";
+        return "products/productList";
     }
 
     @GetMapping("/category/{category_id}")
@@ -69,7 +69,7 @@ public class ProductController {
             }
 
             model.addAttribute("products", productViewDTOS);
-            return "productList";
+            return "products/productList";
         } catch (CategoryException e) {
             throw new ChangeSetPersister.NotFoundException();
         }
@@ -81,7 +81,7 @@ public class ProductController {
     {
         model.addAttribute("formUrl", "/products/add");
         model.addAttribute("categoryList", categoryService.getAllCategories());
-        return "productForm";
+        return "products/productForm";
     }
 
     @PostMapping("/add")
@@ -118,7 +118,7 @@ public class ProductController {
         model.addAttribute("product", modelMapper.map(productService.getProductByID(id), ProductViewDTO.class));
         model.addAttribute("categoryList", categoryService.getAllCategories());
 
-        return "productForm";
+        return "products/productForm";
     }
 
     @PostMapping("/update/{id}")

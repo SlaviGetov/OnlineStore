@@ -19,7 +19,7 @@ public class WebController {
     @RequestMapping("/contact")
     public String contactus()
     {
-        return "contact_us";
+        return "generalPages/contact_us";
     }
 
 

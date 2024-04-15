@@ -23,13 +23,13 @@ public class UserController {
     @GetMapping("/login")
     public String loginPage()
     {
-        return "login";
+        return "userActionPages/login";
     }
 
     @GetMapping("/register")
     public String registerPage()
     {
-        return "registration";
+        return "userActionPages/registration";
     }
 
     @PostMapping("/register")
