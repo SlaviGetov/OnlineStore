@@ -147,3 +147,11 @@ td.product-price,
 .removal-link {
     font-size: 18px;
 }
+
+/* Styling for message area */
+.msg-area {
+    color: red;
+    font-weight: bold;
+    padding-top: 5px;
+    visibility: unset; /* hidden */
+}
