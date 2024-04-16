@@ -3,29 +3,45 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <title>User list</title>
+    <link rel="stylesheet" href="/css/cart.css">
     <div th:replace="~{fragments/head}"></div>
 </head>
-<body>
 
+<body>
 
 <div th:replace="~{fragments/navbar}"></div>
 
-<body>
 
-<table>
-    <tr>
-        <th>Full name</th>
-        <th>Role</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.getFullName()}"></td>
-        <td th:text="${user.getRole().getRoleName()}"></td>
-        <td>
-            <a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Edit user</a>
-        </td>
-    </tr>
-</table>
+<div class="cart-section text-center">
+    <!-- Shopping cart items -->
+    <div class="small-container cart-page" style="width:80%; margin: 0 auto;">
+        <!-- Cart items table -->
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Full name</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            <!-- Cart items rows -->
+            <tr th:each="user: ${users}">
+                <td class="product-price" th:text="${user.getId()}"></td>
+                <td>
+                    <div class="cart-info">
+                        <div class="product-name">
+                            <p th:text="${user.getFullName()}"></p>
+                        </div>
+                    </div>
+                </td>
+                <td class="product-price" th:text="${user.getRole().getRoleName()}"></td>
+                <td>
+                    <a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Edit user</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
 
 <div th:replace="~{fragments/footer}"></div>
 </body>
