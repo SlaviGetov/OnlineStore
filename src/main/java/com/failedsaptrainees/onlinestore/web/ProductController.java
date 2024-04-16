@@ -143,7 +143,7 @@ public class ProductController {
         }
 
         ProductModel productModel = productMapper.getProductModelFromProductDTO(productDTO, categoryService.getCategoryByName(productDTO.getCategory()));
-        productService.updateProduct(productModel.getId(), productModel);
+        productService.updateProduct(id, productModel);
         return "redirect:/products";
     }
 
