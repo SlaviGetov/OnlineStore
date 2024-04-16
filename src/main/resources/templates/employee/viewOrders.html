@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
     <title>Orders list</title>
+    <link rel="stylesheet" href="/css/cart.css">
     <div th:replace="~{fragments/head}"></div>
 </head>
 <body>
@@ -10,23 +11,37 @@
 
 <div th:each="orderViewDTO : ${orders}">
     <p th:text="|Order ID: ${orderViewDTO.getOrderModel().getId()}|"></p>
-        <p th:text="|Ordered by: ${orderViewDTO.getOrderModel().getUserModel().getFullName()}|"></p>
+    <p th:text="|Ordered by: ${orderViewDTO.getOrderModel().getUserModel().getFullName()}|"></p>
     <p th:text="|Order on: ${orderViewDTO.getOrderModel().getOrderDatetime()}|"></p>
 
-    <table border="1">
-        <tr>
-            <th>Product name</th>
-            <th>Price at time of order</th>
-            <th>Amount</th>
-            <th>Total price</th>
-        </tr>
-        <tr th:each="orderProductModel : ${orderViewDTO.getOrderProductModelList()}">
-            <td th:text="${orderProductModel.getProductModel().getName()}"></td>
-            <td th:text="${orderProductModel.getPriceAtTime()}"></td>
-            <td th:text="${orderProductModel.getAmount()}"></td>
-            <td th:text="${orderProductModel.getAmount() * orderProductModel.getPriceAtTime()}"></td>
-        </tr>
-    </table>
+    <div class="cart-section text-center">
+        <!-- Shopping cart items -->
+        <div class="small-container cart-page" style="width:80%; margin: 0 auto;">
+            <!-- Cart items table -->
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Unit price</th>
+                        <th>Total Price</th>
+                    </tr>
+                    <!-- Cart items rows -->
+                    <tr th:each="product: ${orderViewDTO.getOrderProductModelList()}">
+                        <td>
+                            <div class="cart-info">
+                                <img th:src="${product.getProductModel().getImageLink()}">
+                                <div class="product-name">
+                                    <p th:text="${product.getProductModel().getName()}"></p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="product-quantity"><p th:text="${product.getAmount()}"></p></td>
+                        <td class="product-price" th:text="${product.getPriceAtTime()}"></td>
+                        <td class="product-price" th:text="${product.getAmount() * product.getPriceAtTime()}"></td>
+                    </tr>
+                </table>
+        </div>
+        </div>
 
 </div>
 <br>

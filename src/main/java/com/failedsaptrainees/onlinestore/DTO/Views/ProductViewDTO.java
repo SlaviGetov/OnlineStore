@@ -15,6 +15,7 @@ public class ProductViewDTO {
     private Double defaultPrice;
     private Double minimumPrice;
     private Long stockAmount;
+    private String category;
     private String imageLink;
 
     public Long getId() {
@@ -72,7 +73,7 @@ public class ProductViewDTO {
         this.imageLink = imageLink;
     }
 
-    public ProductViewDTO(Long id, String name, Double currentPrice, Double defaultPrice, Double minimumPrice, Long stockAmount, String imageLink) {
+    public ProductViewDTO(Long id, String name, Double currentPrice, Double defaultPrice, Double minimumPrice, Long stockAmount, String imageLink, String category) {
         this.id = id;
         this.name = name;
         this.currentPrice = currentPrice;
@@ -80,6 +81,7 @@ public class ProductViewDTO {
         this.minimumPrice = minimumPrice;
         this.stockAmount = stockAmount;
         this.imageLink = imageLink;
+        this.category = category;
     }
 
     public ProductViewDTO(ProductModel productModel, Double currentPrice)
@@ -91,7 +93,8 @@ public class ProductViewDTO {
                 productModel.getDefaultPrice(),
                 productModel.getMinimumPrice(),
                 productModel.getStockAmount(),
-                productModel.getImageLink()
+                productModel.getImageLink(),
+                productModel.getCategory().getName()
         );
     }
 
@@ -113,7 +116,11 @@ public class ProductViewDTO {
         return df.format(getCurrentPrice());
     }
 
+    public String getCategory() {
+        return category;
+    }
 
-
-
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

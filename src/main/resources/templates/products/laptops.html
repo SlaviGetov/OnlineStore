@@ -37,8 +37,13 @@
 
             </div>
             <!--Gallery-->
+
+
             <div class="container-fluid col-9 py-2">
                 <div class="row justify-content-center">
+                    <div th:if="${products.isEmpty()}">
+                        <h1>No products were found!</h1>
+                    </div>
                     <div class="col-lg-3 col-md-6 col-12 text-center p-0 my-2" th:each="product : ${products}">
                         <div class="laptop-card h-100 m-2" style="position:relative;display: flex;flex-direction: column;">
                             <div class="text-center p-1">
@@ -54,7 +59,7 @@
                                 <th:block th:unless="${product.getCurrentPrice()} < ${product.getDefaultPrice()}">
                                     <p  class="price" th:text="${product.getCurrentPriceFormatted()}">$999.99</p>
                                 </th:block>
-                                <p class="text-center"><a class="btn btn-outline-danger px-5">ADD TO CART</a>
+                                <p class="text-center"><a th:href="@{/cart/add/{product_id}(product_id=${product.getId()})}" class="btn btn-outline-danger px-5">ADD TO CART</a>
                                 </p>
                             </div>
                         </div>

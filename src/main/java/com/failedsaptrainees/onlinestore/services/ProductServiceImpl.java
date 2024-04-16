@@ -90,4 +90,9 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductModel> get4RandomDiscountedProducts() {
         return productRepository.get4RandomDiscountedProducts();
     }
+
+    @Override
+    public List<ProductModel> findByNameContaining(String name) {
+        return productRepository.findByNameContaining(name);
+    }
 }

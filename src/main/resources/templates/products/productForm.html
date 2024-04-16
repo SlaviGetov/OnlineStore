@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <div th:replace="~{fragments/head}"></div>
 </head>
 <body>
+
+
+<div th:replace="~{fragments/navbar}"></div>
 
 <style>
 table, th, td {
@@ -30,5 +34,6 @@ table, th, td {
         <input type="submit">
     </form>
 
+<div th:replace="~{fragments/footer}"></div>
 </body>
 </html>

@@ -43,6 +43,7 @@ public class ProductController {
 
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String getProducts(Model model) throws CategoryException {
         List<ProductViewDTO> productViewDTOS = new ArrayList<>();
 
@@ -51,15 +52,10 @@ public class ProductController {
         }
 
         model.addAttribute("products", productViewDTOS);
-
-        for (ProductModel productModel : productService.getRandomDiscountedProductsFromCategory(categoryService.getCategoryById(2L))) {
-            System.out.println(productModel.getName());
-        }
-
         addDiscountedProductsSideBar(model);
 
 
-        return "products/laptops";
+        return "products/employeeViewProducts";
     }
 
     @GetMapping("/category/{category_id}")
@@ -81,6 +77,21 @@ public class ProductController {
         } catch (CategoryException e) {
             throw new ChangeSetPersister.NotFoundException();
         }
+    }
+
+    @GetMapping("/search")
+    public String getProductsBySearching(@RequestParam(name = "search") String searchTerm, Model model)
+    {
+        List<ProductViewDTO> productViewDTOS = new ArrayList<>();
+
+        for (ProductModel product : productService.findByNameContaining(searchTerm)) {
+            productViewDTOS.add(new ProductViewDTO(product, productService.getProductCurrentPrice(product)));
+        }
+
+        addDiscountedProductsSideBar(model);
+
+        model.addAttribute("products", productViewDTOS);
+        return "products/laptops";
     }
 
     @GetMapping("/add")

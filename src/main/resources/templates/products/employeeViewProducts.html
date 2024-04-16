@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <title>Orders list</title>
+    <link rel="stylesheet" href="/css/cart.css">
+    <div th:replace="~{fragments/head}"></div>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar}"></div>
+
+
+<div class="cart-section text-center">
+    <!-- Shopping cart items -->
+    <div class="small-container cart-page" style="width:80%; margin: 0 auto;">
+        <!-- Cart items table -->
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Current Price</th>
+                <th>Default Price</th>
+                <th>Minimum Price</th>
+                <th>Amount in stock</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+            <!-- Cart items rows -->
+            <tr th:each="product: ${products}">
+                <td class="product-price" th:text="${product.getId()}"></td>
+                <td>
+                    <div class="cart-info">
+                        <img th:src="${product.getImageLink()}">
+                        <div class="product-name">
+                            <p th:text="${product.getName()}"></p>
+                        </div>
+                    </div>
+                </td>
+                <td class="product-price"><p th:text="${product.getCurrentPrice()}"></p></td>
+                <td class="product-price" th:text="${product.getDefaultPrice()}"></td>
+                <td class="product-price" th:text="${product.getMinimumPrice()}"></td>
+                <td class="product-price" th:text="${product.getStockAmount()}"></td>
+                <td class="product-price" th:text="${product.getCategory()}"></td>
+                <td>
+                    <div>
+                        <a th:href="@{/products/update/{product_id}(product_id=${product.getId()})}">Edit</a>
+                        <a th:href="@{/products/delete/{product_id}(product_id=${product.getId()})}">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <a href="/products/add">Add a new product</a>
+    </div>
+</div>
+
+
+<div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

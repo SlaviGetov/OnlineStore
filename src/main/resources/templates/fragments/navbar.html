@@ -68,16 +68,16 @@
         </div>
         <div>
             <ul class="d-flex p-0 m-auto text-center">
-                <li class="nav-link link-style p-1"><a href="/products/category/2">PCs</a></li>
-                <li class="nav-link link-style p-1"><a href="/products/category/3">Laptops</a></li>
-                <li class="nav-link link-style p-1"><a href="/products/category/4">Hardware</a></li>
+                <li class="nav-link link-style p-1"><a href="/products/category/3">PCs</a></li>
+                <li class="nav-link link-style p-1"><a href="/products/category/4">Laptops</a></li>
+                <li class="nav-link link-style p-1"><a href="/products/category/5">Hardware</a></li>
             </ul>
         </div>
         <!-- Search bar -->
         <div class="">
-            <form onsubmit="event.preventDefault(); performSearch();" role="search">
+            <form action="/products/search" method="get">
                 <label for="search" class="visually-hidden"></label>
-                <input id="search" type="search" placeholder="Search..." class="search-text" autofocus required />
+                <input id="search" name="search" type="search" placeholder="Search..." class="search-text" autofocus required />
                 <button type="submit"><img src="/images/search_icon.png" alt="Search Icon"
                                            style="height:1.7rem"></button>
             </form>

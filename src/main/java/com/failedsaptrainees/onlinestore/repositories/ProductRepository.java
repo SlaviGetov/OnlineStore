@@ -23,4 +23,6 @@ public interface ProductRepository extends JpaRepository<ProductModel, Long> {
             "(SELECT products FROM discounts WHERE isActive = true) ORDER BY RAND() LIMIT 4")
     public List<ProductModel> get4RandomDiscountedProducts();
 
+    public List<ProductModel> findByNameContaining(String name);
+
 }
