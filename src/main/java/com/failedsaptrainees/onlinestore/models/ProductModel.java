@@ -1,14 +1,17 @@
 package com.failedsaptrainees.onlinestore.models;
 
 import com.failedsaptrainees.onlinestore.DTO.Views.ProductViewDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.failedsaptrainees.onlinestore.exceptions.ProductException;
+import com.failedsaptrainees.onlinestore.services.CategoryService;
+import com.failedsaptrainees.onlinestore.services.DiscountService;
+import com.failedsaptrainees.onlinestore.services.DiscountServiceImpl;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 
-//TODO: Remove currentPrice as a field and use a method to get it. Calculate the current price in the method, taking in account any discounts.
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,22 +22,28 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String imageLink;
+    @ManyToOne
+    private CategoryModel category;
     private String name;
-    private Double currentPrice;
     private Double defaultPrice;
     private Double minimumPrice;
     private Long stockAmount;
 
-    public ProductViewDTO getProductViewDTO(){
-        ProductViewDTO productViewDTO = new ProductViewDTO(
-                id,
-                name,
-                currentPrice,
-                defaultPrice
-        );
+    public ProductModel(String imageLink, String name, Double defaultPrice, Double minimumPrice, Long stockAmount, CategoryModel category) throws ProductException {
+        this.imageLink = imageLink;
+        this.name = name;
 
-        return productViewDTO;
+        if(minimumPrice > defaultPrice)
+        {
+            throw new ProductException("Minimum price cannot be higher than default price");
+        }
+
+        this.defaultPrice = defaultPrice;
+        this.minimumPrice = minimumPrice;
+        this.stockAmount = stockAmount;
+        this.category = category;
     }
+
 
     public Long getId() {
         return id;
@@ -60,14 +69,6 @@ public class ProductModel {
         this.name = name;
     }
 
-    public Double getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public void setCurrentPrice(Double currentPrice) {
-        this.currentPrice = currentPrice;
-    }
-
     public Double getDefaultPrice() {
         return defaultPrice;
     }
@@ -90,5 +91,13 @@ public class ProductModel {
 
     public void setStockAmount(Long stockAmount) {
         this.stockAmount = stockAmount;
+    }
+
+    public CategoryModel getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryModel category) {
+        this.category = category;
     }
 }

@@ -1,0 +1,5 @@
+<html>
+<th:block th:if="${errors}" th:each="error : ${errors}">
+    <p style="color: red;" th:text="${error}"></p>
+</th:block>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <title>Orders list</title>
+    <div th:replace="~{fragments/head}"></div>
+</head>
+<body>
+
+<div class="navbar">
+    <div th:replace="~{fragments/navbar}"></div>
+</div>
+
+<div th:each="orderViewDTO : ${orders}">
+    <p th:text="|Order ID: ${orderViewDTO.getOrderModel().getId()}|"></p>
+        <p th:text="|Ordered by: ${orderViewDTO.getOrderModel().getUserModel().getFullName()}|"></p>
+    <p th:text="|Order on: ${orderViewDTO.getOrderModel().getOrderDatetime()}|"></p>
+
+    <table border="1">
+        <tr>
+            <th>Product name</th>
+            <th>Price at time of order</th>
+            <th>Amount</th>
+            <th>Total price</th>
+        </tr>
+        <tr th:each="orderProductModel : ${orderViewDTO.getOrderProductModelList()}">
+            <td th:text="${orderProductModel.getProductModel().getName()}"></td>
+            <td th:text="${orderProductModel.getPriceAtTime()}"></td>
+            <td th:text="${orderProductModel.getAmount()}"></td>
+            <td th:text="${orderProductModel.getAmount() * orderProductModel.getPriceAtTime()}"></td>
+        </tr>
+    </table>
+
+</div>
+<br>
+
+</body>
+</html>

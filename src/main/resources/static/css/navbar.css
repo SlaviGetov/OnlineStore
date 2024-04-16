@@ -166,7 +166,7 @@
     width: 100%;
 }
 
-.search-text,
+.search-text >
 button {
     height: 37px;
     font-family: var(--font-fam); /* Using custom font family variable */
@@ -187,7 +187,7 @@ button {
     position: relative;
 }
 
-.navbar button {
+.navbar > button {
     display: none;
     position: absolute;
     top: 0;

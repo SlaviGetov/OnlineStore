@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="POST" action="/statistics/">
+    From date: <input type="datetime-local" name="fromDate" th:value="${incomeForDurationFormDTO?.getFromDate()}"><br>
+    To date: <input type="datetime-local" name="toDate" th:value="${incomeForDurationFormDTO?.getToDate()}"><br>
+    <input type="submit">
+</form>
+
+<p th:if="${income} != null" th:text="|The income is: ${income}|"></p>
+
+</body>
+</html>

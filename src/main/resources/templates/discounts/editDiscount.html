@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <title>Edit discount</title>
+    <div th:replace="~{fragments/head}"></div>
+</head>
+<body>
+
+<div class="navbar">
+    <div th:replace="~{fragments/navbar}"></div>
+</div>
+
+<th:block th:replace="~{discounts/discountDetails :: details('/discounts/edit/' + ${discountId})}">
+</th:block>
+
+<table border="1">
+    <tr>
+        <th>Product Name</th>
+        <th>Default Price</th>
+        <th>Minimum Price</th>
+        <th>New Price</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.getName()}"></td>
+        <td th:text="${product.getDefaultPrice()}"></td>
+        <td th:text="${product.getMinimumPrice()}"></td>
+        <td th:text="${product.getCurrentPrice()}"></td>
+        <td><a th:href="@{/discounts/removeproduct/{discount_id}/{product_id}(discount_id=${discountId}, product_id=${product.getId()})}">Remove</a></td>
+    </tr>
+</table>
+
+<form method="post" th:action="@{/discounts/addproduct/{discount_id}(discount_id=${discountId})}" >
+    <input type="number" name="itemId" placeholder="ID of item">
+    <input type="submit">
+</form>
+
+</body>
+</html>

@@ -11,16 +11,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WebController {
 
     @RequestMapping("")
-    @ResponseBody
     public String index()
     {
-        return "Hello World!";
+        return "index";
     }
 
     @RequestMapping("/contact")
     public String contactus()
     {
-        return "contact_us";
+        return "generalPages/contact_us";
     }
 
 

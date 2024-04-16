@@ -1,0 +1,12 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<th:block th:fragment="details(url)" th:object="${discountDTO}">
+    <form method="post" th:action="${url}">
+        <input type="text" placeholder="Discount name" th:field="${discountDTO.name}" name="name"><br>
+        <input type="number" step="any" max="1" min="0" th:field="${discountDTO.percentageDiscount}" placeholder="Discount percentage" name="percentageDiscount"><br>
+        Active? <input type="checkbox" name="isActive" th:field="${discountDTO.active}" ><br>
+        <input type="submit">
+    </form>
+</th:block>
+</html>
+
+

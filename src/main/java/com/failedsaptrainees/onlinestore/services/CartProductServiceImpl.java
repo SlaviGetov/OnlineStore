@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,7 +82,7 @@ public class CartProductServiceImpl implements CartProductService {
         CartProductModel newCartProduct = new CartProductModel();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication.isAuthenticated())
+        if(AuthenticationChecker.isLoggedIn())
         {
             newCartProduct.setUser(userService.getUserByEmail(authentication.getName()));
         }
@@ -160,11 +161,12 @@ public class CartProductServiceImpl implements CartProductService {
         }
 
         cartProduct.get().setAmount(amount);
+        cartProductRepository.saveAndFlush(cartProduct.get());
 
     }
 
     @Override
-    public boolean saveCart(List<CartProductModel> cartProductModels, HttpSession httpSession) {
+    public void saveCart(List<CartProductModel> cartProductModels, HttpSession httpSession) {
 
         if(AuthenticationChecker.isLoggedIn())
         {
@@ -177,11 +179,18 @@ public class CartProductServiceImpl implements CartProductService {
         {
             httpSession.setAttribute("cart", cartProductModels);
         }
-        return true;
     }
 
     @Override
-    public List<ProductModel> getCartProducts(List<CartProductModel> cartProductModels) {
-        return cartProductModels.stream().map(CartProductModel::getProduct).toList();
+    public void emptyCart(HttpSession httpSession) {
+        List<CartProductModel> cartList = getCart(httpSession);
+
+        // Iterate over a copy to prevent ConcurrentModificationException.
+        Iterator<CartProductModel> cartListIterator = new ArrayList<CartProductModel>(cartList).iterator();
+
+        while (cartListIterator.hasNext()) {
+            CartProductModel cartProductModel = cartListIterator.next();
+            removeItemFromCart(cartList, cartProductModel.getProduct());
+        }
     }
 }
