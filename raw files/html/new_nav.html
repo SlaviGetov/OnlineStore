@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/new_nav.css">
+</head>
+
+<body>
+    <nav class="container-fluid p-0 m-0">
+        <div class="d-flex justify-content-between first-row text-center px-3 py-0">
+            <ul class="d-flex justify-content-start align-items-center p-1 m-0">
+                <li class="nav-link link-style"><a href="/">Home</a></li>
+                <li class="nav-link link-style"><a href="/" class="">About Us</a></li>
+                <li class="nav-link link-style"><a href="/raw files/html/contact_us.html">Contact Us</a></li>
+            </ul>
+            <ul class="d-flex justify-content-end text-right align-items-center p-0 m-0">
+                <li class="nav-link link-style">
+                    <a href="../html/login.html" class="d-flex align-items-center text-center">
+                        <img src="../images/login_logo.png" alt="Login" class="img-fluid" style="height:1.7rem">
+                        <span class="">Log in</span>
+                    </a>
+                </li>
+                <li class="nav-link link-style">
+                    <a href="../html/login.html" class="d-flex align-items-center text-center">
+                        <img src="../images/cart_logo.png" alt="Login" class="img-fluid" style="height:1.7em">
+                        <span class="">Log in</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex justify-content-between align-items-center second-row m-0 p-0 p-lg-4">
+            <!-- Logo -->
+            <div class="">
+                <div class="logo">
+                    <a href="/" title="SAPTOPS">
+                        <img src="../images/logo.png" alt="Store Logo" class="img-fluid" style="height:1.7rem">
+                    </a>
+                </div>
+            </div>
+            <div>
+                <ul class="d-flex p-0 m-auto text-center">
+                    <li class="nav-link link-style p-1"><a href="/">PCs</a></li>
+                    <li class="nav-link link-style p-1"><a href="/">Laptops</a></li>
+                    <li class="nav-link link-style p-1"><a href="/">Hardware</a></li>
+                </ul>
+            </div>
+            <!-- Search bar -->
+            <div class="">
+                <form onsubmit="event.preventDefault(); performSearch();" role="search">
+                    <label for="search" class="visually-hidden"></label>
+                    <input id="search" type="search" placeholder="Search..." class="search-text" autofocus required />
+                    <button type="submit"><img src="../images/search_icon.png" alt="Search Icon"
+                            style="height:1.7rem"></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</body>
+<script>
+    function performSearch() {
+        // Get the search input value
+        var searchQuery = document.getElementById("search").value;
+
+        // You can perform your search logic here
+        // For demonstration purposes, let's just alert the search query
+        alert("Performing search for: " + searchQuery);
+    }
+</script>
+
+</html>
