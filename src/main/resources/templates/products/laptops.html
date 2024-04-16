@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptops</title>
+    <link rel="stylesheet" href="/css/gallery.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <div th:replace="~{fragments/head}"></div>
+
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/navbar}"></div>
+
+    <div class="container-fluid p-0">
+        <div class="d-flex">
+            <!--Sidebar-->
+            <div class="container-fluid col-3 p-0 justify-content-center sidebar">
+                <div class="sidebar-header text-center py-1">
+                    <h3 style="font-size: 2vw;">New Releases</h3>
+                </div>
+                <th:block th:each="product : ${discounted_products}">
+                <div class="sidebar-offer d-md-flex align-items-center d-sm-block text-center text-lg-left">
+                    <div class="w-50">
+                        <img th:src="${product.getImageLink()}" alt="NEW!" class="img-fluid">
+                    </div>
+                    <div class="my-lg-2 px-1">
+                        <h5 th:text="${product.getName()}"></h5>
+                        <p th:text="${product.getDefaultPriceFormatted()}" style="text-decoration:line-through; margin-bottom: 0;">$999.99</p>
+                        <p th:text="${product.getCurrentPriceFormatted()}" style="color:rgb(255, 0, 0);font-weight: bold;margin-bottom: 0 !important;">$555.99</p>
+                    </div>
+                </div>
+                </th:block>
+
+            </div>
+            <!--Gallery-->
+            <div class="container-fluid col-9 py-2">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-md-6 col-12 text-center p-0 my-2" th:each="product : ${products}">
+                        <div class="laptop-card h-100 m-2" style="position:relative;display: flex;flex-direction: column;">
+                            <div class="text-center p-1">
+                                <img th:src="${product.getImageLink()}" alt="laptop" class="img-fluid">
+                            </div>
+                            <div class="p-2 h-100 text-container" style="display: flex;flex-direction: column;justify-content: space-between">
+                                <h4 th:text="${product.getName()}"></h4>
+
+                                <th:block th:if="${product.getCurrentPrice()} < ${product.getDefaultPrice()}">
+                                    <p class="price" th:text="${product.getDefaultPriceFormatted()}" style="text-decoration:line-through; margin-bottom: 0;">$999.99</p>
+                                    <p class="price" th:text="${product.getCurrentPriceFormatted()}" style="color:rgb(255, 0, 0);font-weight: bold;margin-bottom: 0 !important;">$555.99</p>
+                                </th:block>
+                                <th:block th:unless="${product.getCurrentPrice()} < ${product.getDefaultPrice()}">
+                                    <p  class="price" th:text="${product.getCurrentPriceFormatted()}">$999.99</p>
+                                </th:block>
+                                <p class="text-center"><a class="btn btn-outline-danger px-5">ADD TO CART</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function performSearch() {
+            // Get the search input value
+            var searchQuery = document.getElementById("search").value;
+
+            // You can perform your search logic here
+            // For demonstration purposes, let's just alert the search query
+            alert("Performing search for: " + searchQuery);
+        }
+    </script>
+
+    <div th:replace="~{fragments/footer}"></div>
+</body>
+
+</html>

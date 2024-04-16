@@ -43,8 +43,7 @@ public class ProductController {
 
 
     @GetMapping("")
-    public String getProducts(Model model)
-    {
+    public String getProducts(Model model) throws CategoryException {
         List<ProductViewDTO> productViewDTOS = new ArrayList<>();
 
         for (ProductModel product : productService.getAllProducts()) {
@@ -53,7 +52,14 @@ public class ProductController {
 
         model.addAttribute("products", productViewDTOS);
 
-        return "products/productList";
+        for (ProductModel productModel : productService.getRandomDiscountedProductsFromCategory(categoryService.getCategoryById(2L))) {
+            System.out.println(productModel.getName());
+        }
+
+        addDiscountedProductsSideBar(model);
+
+
+        return "products/laptops";
     }
 
     @GetMapping("/category/{category_id}")
@@ -68,8 +74,10 @@ public class ProductController {
                 productViewDTOS.add(new ProductViewDTO(product, productService.getProductCurrentPrice(product)));
             }
 
+            addDiscountedProductsSideBar(model);
+
             model.addAttribute("products", productViewDTOS);
-            return "products/productList";
+            return "products/laptops";
         } catch (CategoryException e) {
             throw new ChangeSetPersister.NotFoundException();
         }
@@ -155,6 +163,18 @@ public class ProductController {
         productService.deleteProduct(productModel);
 
         return "redirect:/products/";
+    }
+
+    private void addDiscountedProductsSideBar(Model model)
+    {
+
+        List<ProductViewDTO> productViewDTOS = new ArrayList<>();
+
+        for (ProductModel product : productService.get4RandomDiscountedProducts()) {
+            productViewDTOS.add(new ProductViewDTO(product, productService.getProductCurrentPrice(product)));
+        }
+
+        model.addAttribute("discounted_products", productViewDTOS);
     }
 
 }

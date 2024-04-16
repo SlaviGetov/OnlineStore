@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <div th:replace="~{fragments/head}"></div>
 </head>
 <body>
+<div th:replace="~{fragments/navbar}"></div>
 
 <form method="POST" action="/statistics/">
     From date: <input type="datetime-local" name="fromDate" th:value="${incomeForDurationFormDTO?.getFromDate()}"><br>
@@ -14,5 +16,6 @@
 
 <p th:if="${income} != null" th:text="|The income is: ${income}|"></p>
 
+<div th:replace="~{fragments/footer}"></div>
 </body>
 </html>

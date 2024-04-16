@@ -79,6 +79,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderModel> getAllOrdersOrdered() {
+        return orderRepository.findAllByOrderByIdDesc();
+    }
+
+    @Override
     public List<OrderProductModel> getOrderProducts(OrderModel orderModel) {
         return orderProductRepository.findOrderProductsByOrderModel(orderModel);
     }

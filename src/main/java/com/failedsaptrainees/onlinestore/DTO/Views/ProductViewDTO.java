@@ -4,6 +4,8 @@ import com.failedsaptrainees.onlinestore.models.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.text.DecimalFormat;
+
 @NoArgsConstructor
 public class ProductViewDTO {
 
@@ -92,6 +94,25 @@ public class ProductViewDTO {
                 productModel.getImageLink()
         );
     }
+
+    public String getDefaultPriceFormatted()
+    {
+        DecimalFormat df = new DecimalFormat("$#0.00");
+        return df.format(getDefaultPrice());
+    }
+
+    public String getMinimumPriceFormatted()
+    {
+        DecimalFormat df = new DecimalFormat("$#0.00");
+        return df.format(getMinimumPrice());
+    }
+
+    public String getCurrentPriceFormatted()
+    {
+        DecimalFormat df = new DecimalFormat("$#0.00");
+        return df.format(getCurrentPrice());
+    }
+
 
 
 

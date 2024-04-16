@@ -13,6 +13,7 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<OrderModel, Long> {
 
     public List<OrderModel> findOrdersByUserModel(UserModel userModel);
+    public List<OrderModel> findAllByOrderByIdDesc();
     public List<OrderModel> findOrdersByOrderDatetimeBetween(LocalDateTime fromDate, LocalDateTime toDate);
 
 }

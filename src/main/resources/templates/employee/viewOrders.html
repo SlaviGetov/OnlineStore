@@ -6,9 +6,7 @@
 </head>
 <body>
 
-<div class="navbar">
     <div th:replace="~{fragments/navbar}"></div>
-</div>
 
 <div th:each="orderViewDTO : ${orders}">
     <p th:text="|Order ID: ${orderViewDTO.getOrderModel().getId()}|"></p>

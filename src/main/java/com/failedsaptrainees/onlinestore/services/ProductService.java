@@ -15,5 +15,7 @@ public interface ProductService {
     public ProductModel getProductByID(int id) throws ProductException;
     public Double getProductCurrentPrice(ProductModel productModel);
     public List<ProductModel> getAllProductsByCategory(CategoryModel category);
+    public List<ProductModel> getRandomDiscountedProductsFromCategory(CategoryModel category);
+    public List<ProductModel> get4RandomDiscountedProducts();
 
 }

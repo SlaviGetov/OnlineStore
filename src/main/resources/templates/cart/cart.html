@@ -11,9 +11,7 @@
 
 <body>
 
-    <div class="navbar">
-        <div th:replace="~{fragments/navbar}"></div>
-    </div>
+    <div th:replace="~{fragments/navbar}"></div>
 
     <div th:each="error_flash : ${errors_flash}">
         <p th:text="${error_flash}"></p>
@@ -25,7 +23,7 @@
         <p th:text="${success}"></p>
     </div>
 
-    <div class="container">
+    <div class="container-wrapper">
         <div class="cart-section">
             <!-- Shopping cart items -->
             <div class="small-container cart-page">

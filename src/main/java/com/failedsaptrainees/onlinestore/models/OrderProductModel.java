@@ -29,6 +29,14 @@ public class OrderProductModel {
         this.priceAtTime = priceAtTime;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public OrderModel getOrderModel() {
         return orderModel;
     }

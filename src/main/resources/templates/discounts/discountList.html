@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/cart.css">
+    <div th:replace="~{fragments/head}"></div>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar}"></div>
+
+<div th:each="error_flash : ${errors_flash}">
+    <p th:text="${error_flash}"></p>
+</div>
+
+<th:block th:replace="~{fragments/errorAlerts}"></th:block>
+
+<div th:if="${success != null}">
+    <p th:text="${success}"></p>
+</div>
+
+<div class="container-wrapper">
+    <div class="cart-section">
+        <!-- Shopping cart items -->
+        <div class="small-container cart-page text-center" style="width:80%; margin: 0 auto;">
+            <!-- Cart items table -->
+            <table>
+                <tr>
+                    <th>Discount Name</th>
+                    <th>Discount Active</th>
+                    <th>Discount Percentage</th>
+                    <th>Action</th>
+                </tr>
+                <!-- Cart items rows -->
+                <tr th:each="discount: ${discounts}">
+                    <td>
+                        <div class="product-name">
+                            <p th:text="${discount.getDiscountName()}"></p>
+                        </div>
+                    </td>
+                    <td class="product-quantity"><p th:text="${discount.isActive()}"></p></td>
+                    <td class="product-removal"><p th:text="${discount.getPercentageDiscount()}"></p></td>
+                    <td class="product-price"><a th:href="@{/discounts/edit/{id}(id=${discount.getId()})}">Edit</a></td>
+                </tr>
+
+                <!-- Add more cart item rows here if needed -->
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer}"></div>
+</body>
+
+</html>

@@ -18,6 +18,7 @@ public interface OrderService {
     public List<OrderModel> getOrdersByUser(UserModel user);
 
     public List<OrderModel> getAllOrders();
+    public List<OrderModel> getAllOrdersOrdered();
 
     public List<OrderProductModel> getOrderProducts(OrderModel orderModel);
 

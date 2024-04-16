@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String allOrders(Model model)
     {
-        List<OrderModel> allOrdersList = orderService.getAllOrders();
+        List<OrderModel> allOrdersList = orderService.getAllOrdersOrdered();
         List<OrderViewDTO> orderViewDTOS = new ArrayList<>();
 
         for (OrderModel orderModel : allOrdersList) {

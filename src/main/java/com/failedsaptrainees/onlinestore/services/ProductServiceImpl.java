@@ -80,4 +80,14 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductModel> getAllProductsByCategory(CategoryModel category) {
         return productRepository.findAllProductsByCategory(category);
     }
+
+    @Override
+    public List<ProductModel> getRandomDiscountedProductsFromCategory(CategoryModel category) {
+        return productRepository.get4DiscountedProductsInCategoryRandomly(category);
+    }
+
+    @Override
+    public List<ProductModel> get4RandomDiscountedProducts() {
+        return productRepository.get4RandomDiscountedProducts();
+    }
 }

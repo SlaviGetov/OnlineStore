@@ -34,21 +34,12 @@ public class DiscountController {
     private ProductService productService;
 
     @GetMapping("")
-    @ResponseBody
-    public String getAllDiscounts()
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    public String getAllDiscounts(Model model)
     {
-
         List<DiscountModel> discounts =  discountService.getAllDiscounts();
-
-        for (DiscountModel discount : discounts) {
-            System.out.println(discount.getPercentageDiscount());
-            System.out.println(discount.isActive());
-            for (ProductModel product : discount.getProducts()) {
-                System.out.println(product.getName());
-            }
-        }
-
-        return "getAllDiscounts";
+        model.addAttribute("discounts", discounts);
+        return "discounts/discountList";
     }
 
     @GetMapping("/add")

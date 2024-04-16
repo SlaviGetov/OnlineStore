@@ -6,7 +6,7 @@ body, html {
 }
 
 /* Container for cart and total sections */
-.container {
+.container-wrapper {
     display: flex;
     height: 100%;
 }

@@ -7,9 +7,8 @@
 </head>
 <body>
 
-<div class="navbar">
-    <div th:replace="~{fragments/navbar}"></div>
-</div>
+<div th:replace="~{fragments/navbar}"></div>
+
 
 <th:block th:replace="~{admin/userDetails :: details('/admin/edit/' + ${userId})}">
 </th:block>
