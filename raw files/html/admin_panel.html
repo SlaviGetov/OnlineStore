@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="../css/admin_panel.css">
+</head>
+
+<body>
+    <section class="container">
+        <header>Admin Panel</header>
+        <form action="#" class="form">
+            <!-- Item Name -->
+            <div class="input-box">
+                <label for="item-name">Item Name</label>
+                <input type="text" id="item-name" placeholder="Enter item name" required>
+            </div>
+
+            <!-- Product Default Price -->
+            <div class="input-box">
+                <label for="default-price">Product Default Price</label>
+                <input type="number" id="default-price" placeholder="Enter default price" required>
+            </div>
+
+            <!-- Product Minimum Price -->
+            <div class="input-box">
+                <label for="min-price">Product Minimum Price</label>
+                <input type="number" id="min-price" placeholder="Enter min price" required>
+            </div>
+
+            <!-- Product Image Path -->
+            <div class="input-box">
+                <label for="image-path">Product Image Path</label>
+                <input type="text" id="image-path" placeholder="Enter image path" required>
+            </div>
+
+            <!-- Stock Amount -->
+            <div class="input-box">
+                <label for="stock-amount">Stock Amount</label>
+                <input type="number" id="stock-amount" placeholder="Enter stock amount" required>
+            </div>
+
+            <!-- Category -->
+            <div class="category-box">
+                <label for="category">Category</label>
+                <select id="category" required>
+                    <option value="" disabled selected>Select category</option>
+                    <option value="pcs">PCs</option>
+                    <option value="laptops">Laptops</option>
+                    <option value="hardware">Hardware</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+
+            <!-- Reset Button -->
+            <button type="reset">Reset</button>
+        </form>
+    </section>
+</body>
+</html>
