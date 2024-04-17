@@ -34,6 +34,9 @@ public class AdminController {
     public String getAllUsers(Model model)
     {
         model.addAttribute("users", userService.getAllUsers());
+
+        System.out.println(userService.getAllUsers().stream().map(UserModel::getFullName));
+
         return "admin/userList";
     }
 
@@ -70,7 +73,7 @@ public class AdminController {
         {
             try{
                 UserModel userModel = userService.getUserById(userId);
-                userModel.setFullName(userModel.getFullName());
+                userModel.setFullName(userDetailsFormDTO.getFullName());
                 userModel.setRole(roleService.getRole(Roles.valueOf(userDetailsFormDTO.getRole())));
 
                 if(!userDetailsFormDTO.getPassword().isEmpty())

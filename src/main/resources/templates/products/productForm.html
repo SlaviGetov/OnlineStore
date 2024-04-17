@@ -29,7 +29,7 @@ table, th, td {
         <input type="url" name="imageLink" placeholder="Product Image" th:value="${product?.getImageLink()}"><br>
         <input type="number" name="stockAmount" placeholder="Product Stock Amount" th:value="${product?.getStockAmount()}"><br>
         <select name="category">
-            <option th:each="category : ${categoryList}" th:value="${category.getName()}" th:text="${category.getName()}"></option>
+            <option th:each="category : ${categoryList}" th:selected="${category.getName()} == ${product?.getCategory()}" th:value="${category.getName()}" th:text="${category.getName()}"></option>
         </select><br>
         <input type="submit">
     </form>
