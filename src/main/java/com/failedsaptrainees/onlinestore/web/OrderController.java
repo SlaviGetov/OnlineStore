@@ -8,6 +8,7 @@ import com.failedsaptrainees.onlinestore.models.OrderModel;
 import com.failedsaptrainees.onlinestore.models.OrderProductModel;
 import com.failedsaptrainees.onlinestore.services.CartProductService;
 import com.failedsaptrainees.onlinestore.services.OrderService;
+import com.failedsaptrainees.onlinestore.utils.RedirectAttributeUtils;
 import jakarta.persistence.Tuple;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,7 @@ public class OrderController {
             redirectAttributes.addFlashAttribute("success", "Your order has been placed successfully!");
         } catch (OrderException orderException)
         {
-            System.out.println("error");
-            redirectAttributes.addFlashAttribute("error", "One or more items in your cart aren't in stock!");
+            RedirectAttributeUtils.addErrorAttribute(redirectAttributes, orderException.getMessage());
         }
 
         return "redirect:/cart";

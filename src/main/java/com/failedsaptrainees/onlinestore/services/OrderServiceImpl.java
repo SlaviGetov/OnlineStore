@@ -38,6 +38,11 @@ public class OrderServiceImpl implements OrderService {
 
         UserModel userModel = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
+        if(cartList.isEmpty())
+        {
+            throw new OrderException("The cart is empty!");
+        }
+
         for (CartProductModel cartItem : cartList) {
             if(cartItem.getProduct().getStockAmount() < cartItem.getAmount())
             {

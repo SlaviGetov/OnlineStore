@@ -13,10 +13,6 @@
 
     <div th:replace="~{fragments/navbar}"></div>
 
-    <div th:each="error_flash : ${errors_flash}">
-        <p th:text="${error_flash}"></p>
-    </div>
-
     <th:block th:replace="~{fragments/errorAlerts}"></th:block>
 
     <div th:if="${success != null}">
