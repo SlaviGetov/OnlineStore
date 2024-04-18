@@ -15,4 +15,4 @@ The project is an Online Store made on Java backend with Spring Boot. (More TBA)
 
 
 ### Documentation
-TBA
+[ER Diagram](https://github.com/SlaviGetov/OnlineStore/blob/main/documentation/erd.png)
