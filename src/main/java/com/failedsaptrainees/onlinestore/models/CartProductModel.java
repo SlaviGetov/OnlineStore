@@ -1,6 +1,8 @@
 package com.failedsaptrainees.onlinestore.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name = "cart_product")
 public class CartProductModel {
@@ -13,6 +15,7 @@ public class CartProductModel {
     private UserModel user;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ProductModel product;
 
     private int amount;

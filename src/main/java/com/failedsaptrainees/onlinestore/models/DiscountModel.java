@@ -3,6 +3,8 @@ package com.failedsaptrainees.onlinestore.models;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class DiscountModel {
     private double percentageDiscount;
 
     @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ProductModel> products;
 
     public Long getId() {

@@ -1,5 +1,17 @@
 <html>
+
+<style>
+    .msg-area {
+    color: red;
+    font-weight: bold;
+    padding-top: 5px;
+    visibility: unset; /* hidden */
+}
+</style>
+
 <th:block th:if="${errors}" th:each="error : ${errors}">
-    <p style="color: red;" th:text="${error}"></p>
+    <div class="msg-area" th:text="${error}">
+        Please add items to cart.
+    </div>
 </th:block>
 </html>

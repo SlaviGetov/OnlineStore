@@ -3,6 +3,8 @@ package com.failedsaptrainees.onlinestore.models;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @NoArgsConstructor
 @Entity(name = "orders_products")
@@ -16,6 +18,7 @@ public class OrderProductModel {
     private OrderModel orderModel;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ProductModel productModel;
 
     private int amount;
