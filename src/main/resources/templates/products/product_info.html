@@ -30,7 +30,7 @@
           <!-- Product Pricing -->
           <div class="product-price">
             <span th:text="${product.getCurrentPrice()}">148$</span>
-            <a th:href="@{/cart/add/{id}(id=${product.getId()}}" class="cart-btn">Add to cart</a>
+            <a th:href="@{/cart/add/{id} (id=${product.getId()})}" class="cart-btn">Add to cart</a>
           </div>
         </div>
       </main>
