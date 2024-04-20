@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+
+    <script src="/js/multi-image-slider.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="/css/mdb.min.css" />
+    <!-- Custom styles -->
+
+    <link rel="stylesheet" href="/css/home_page.css">
+    <div th:replace="~{fragments/head}"></div>
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/navbar}"></div>
+
+    <!-- SLIDER -->
+
+    <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+    
+        <div class="carousel-inner">
+          <div class="carousel-item active c-item">
+            <img src="/images/snapedit_1712665598741.png" class="d-block w-100 c-img" alt="Slide 1">
+          </div>
+          <div class="carousel-item c-item">
+            <img src="/images/3d-objects-laptop-black-friday-red-background_23-2148660042.jpg" class="d-block w-100 c-img" alt="Slide 2">
+          </div>
+          <div class="carousel-item c-item">
+            <img src="/images/snapedit_1712665598741.png" class="d-block w-100 c-img" alt="Slide 3">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- SLIDER -->
+
+    <!--Multi-item-->
+
+
+
+    <!-- FOOTER -->
+
+    <div th:replace="~{fragments/footer}"></div>
+
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="js/script.js"></script>
+
+
+</body>
+
+
+<script>
+  function performSearch() {
+      // Get the search input value
+      var searchQuery = document.getElementById("search").value;
+
+      // You can perform your search logic here
+      // For demonstration purposes, let's just alert the search query
+      alert("Performing search for: " + searchQuery);
+  }
+
+
+  let items = document.querySelectorAll('.multi-item-slider .carousel-item')
+
+		items.forEach((el) => {
+			const minPerSlide = 4
+			let next = el.nextElementSibling
+			for (var i=1; i<minPerSlide; i++) {
+				if (!next) {
+            // wrap carousel by using first child
+            next = items[0]
+        }
+        let cloneChild = next.cloneNode(true)
+        el.appendChild(cloneChild.children[0])
+        next = next.nextElementSibling
+    }
+})
+
+</script>
+
+
+</html>
+

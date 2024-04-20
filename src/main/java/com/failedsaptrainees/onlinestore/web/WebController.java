@@ -13,7 +13,13 @@ public class WebController {
     @RequestMapping("")
     public String index()
     {
-        return "index";
+        return "generalPages/home_page";
+    }
+
+    @RequestMapping("/about")
+    public String aboutus()
+    {
+        return "generalPages/about_us";
     }
 
     @RequestMapping("/contact")

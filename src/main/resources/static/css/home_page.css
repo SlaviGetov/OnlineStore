@@ -1,0 +1,54 @@
+/* SLIDER */
+
+.c-item {
+    height: 500px;
+  }
+  
+.c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+
+/* MULTI-ITEM CAROUSEL*/
+
+
+@media (max-width: 767px) {
+  .custom-carousel .carousel-item > div {
+      display: none;
+  }
+  .custom-carousel .carousel-item > div:first-child {
+      display: block;
+  }
+}
+
+.custom-carousel .carousel-item.active,
+.custom-carousel .carousel-item-next,
+.custom-carousel .carousel-item-prev {
+  display: flex;
+}
+
+/* medium and up screens */
+@media (min-width: 768px) {
+
+  .custom-carousel .carousel-item-end.active,
+  .custom-carousel .carousel-item-next {
+      transform: translateX(25%);
+  }
+
+  .custom-carousel .carousel-item-start.active, 
+  .custom-carousel .carousel-item-prev {
+      transform: translateX(-25%);
+  }
+}
+
+.custom-carousel .carousel-item-end,
+.custom-carousel .carousel-item-start { 
+  transform: translateX(0);
+}
+
+
+.custom-wider-div {
+  width: 25%; /* Adjust the width as needed */
+}

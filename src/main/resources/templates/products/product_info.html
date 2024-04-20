@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/product_info.css">
+    <title>Product information</title>
+    <div th:replace="~{fragments/head}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar}"></div>
+    <main class="container">
+ 
+        <!-- Left Column / Headphones Image -->
+        <div class="left-column">
+          <img style="position: relative;" data-image="red" class="active" th:src="${product.getImageLink()}" alt="">
+        </div>
+       
+        <!-- Right Column -->
+        <div class="right-column">
+       
+          <!-- Product Description -->
+          <div class="product-description">
+            <h1 th:text="${product.getName()}">Beats EP</h1>
+          </div>
+       
+          <!-- Product Configuration -->
+          <div class="product-configuration">
+
+          <!-- Product Pricing -->
+          <div class="product-price">
+            <span th:text="${product.getCurrentPrice()}">148$</span>
+            <a th:href="@{/cart/add/{id}(id=${product.getId()}}" class="cart-btn">Add to cart</a>
+          </div>
+        </div>
+      </main>
+    <div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

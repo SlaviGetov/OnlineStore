@@ -58,6 +58,15 @@ public class ProductController {
         return "products/employeeViewProducts";
     }
 
+    @GetMapping("{id}")
+    public String viewProduct(@PathVariable(name = "id") Long product_id, Model model) throws ProductException {
+        ProductModel productModel = productService.getProductByID(Math.toIntExact(product_id));
+        ProductViewDTO productViewDTO = new ProductViewDTO(productModel, productService.getProductCurrentPrice(productModel));
+
+        model.addAttribute("product", productViewDTO);
+        return "products/product_info";
+    }
+
     @GetMapping("/category/{category_id}")
     public String getProductsByCategory(@PathVariable(name = "category_id") Long categoryId, Model model) throws ChangeSetPersister.NotFoundException {
         try {
