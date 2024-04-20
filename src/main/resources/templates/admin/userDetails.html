@@ -1,20 +1,39 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<th:block th:fragment="details(url)" th:object="${userDetailsViewDTO}">
-    <form method="post" th:action="${url}">
-        <input type="text" placeholder="User name" th:field="${userDetailsViewDTO.fullName}" name="fullName"><br>
-        <input type="text" placeholder="Set new password, leave empty for no change" name="password"><br>
-        <select name="role">
-            <option th:each="role : ${T(com.failedsaptrainees.onlinestore.enums.Roles).values()}"
-                    th:value="${role}" th:text="${role}"
-                    th:selected="${role.toString()} == ${userDetailsViewDTO.getRole().getRoleName()}">
-            </option>
-        </select><br>
+
+
+<div class="container" th:fragment="details(url)" th:object="${userDetailsViewDTO}">
+    <link rel="stylesheet" href="/css/admin_panel.css">
+
+    <header>User Details</header>
+    <form method="post" class="form" th:action="${url}">
+        <!-- Item Name -->
+        <div class="input-box">
+            <label for="item-name">User name</label>
+            <input id="item-name" type="text" name="fullName" placeholder="User name" th:field="${userDetailsViewDTO.fullName}" required>
+        </div>
+
+        <!-- Product Default Price -->
+        <div class="input-box">
+            <label for="user-pass">Password</label>
+            <input id="user-pass" type="password" name="password" placeholder="Set new password, leave empty for no change" >
+        </div>
+
+        <div class="category-box">
+            <label for="category">Role</label>
+            <select id="category" name="role" required>
+                <option th:each="role : ${T(com.failedsaptrainees.onlinestore.enums.Roles).values()}"
+                        th:value="${role}" th:text="${role}"
+                        th:selected="${role.toString()} == ${userDetailsViewDTO.getRole().getRoleName()}">
+                </option>
+            </select><br>
+        </div>
 
 
 
-        <input type="submit">
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
     </form>
-</th:block>
+</div>
 </html>
 
 

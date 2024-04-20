@@ -14,6 +14,7 @@ public interface DiscountService {
     public List<DiscountModel> getDiscountsForProduct(ProductModel product, boolean isActive);
     public void addDiscount(DiscountModel discount);
     public void updateDiscount(Long id, DiscountModel discount);
+    public void deleteDiscount(DiscountModel discount);
     public void setDiscountActive(DiscountModel discountModel, boolean isActive);
     public DiscountModel getDiscountById(Long id) throws DiscountException;
 

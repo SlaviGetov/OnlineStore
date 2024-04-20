@@ -9,16 +9,19 @@ import com.failedsaptrainees.onlinestore.models.DiscountModel;
 import com.failedsaptrainees.onlinestore.models.ProductModel;
 import com.failedsaptrainees.onlinestore.services.DiscountService;
 import com.failedsaptrainees.onlinestore.services.ProductService;
+import com.failedsaptrainees.onlinestore.utils.RedirectAttributeUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +93,20 @@ public class DiscountController {
         }
     }
 
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    public String deleteDiscount(@PathVariable(name = "id") Long discountId, RedirectAttributes redirectAttributes) {
+
+        try{
+            DiscountModel discountModel = discountService.getDiscountById(discountId);
+            discountService.deleteDiscount(discountModel);
+        } catch (DiscountException e)
+        {
+            RedirectAttributeUtils.addErrorAttribute(redirectAttributes, "The discount no longer exists");
+        }
+
+        return "redirect:/discounts";
+    }
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String editDiscount(@PathVariable(name = "id") Long discountId, @Valid @ModelAttribute DiscountDTO discountDTO, BindingResult bindingResult) throws DiscountException {

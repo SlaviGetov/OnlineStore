@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/admin_panel.css">
     <div th:replace="~{fragments/head}"></div>
 </head>
 <body>
@@ -22,17 +23,53 @@ table, th, td {
         <p th:text="${error.getDefaultMessage()}"></p>
     </div>
 
-    <form th:action="${formUrl}" method="POST">
-        <input type="text" name="name" placeholder="Product Name" th:value ="${product?.getName()}"><br>
-        <input type="number" name="defaultPrice" placeholder="Product Default Price" th:value="${product?.getDefaultPrice()}"><br>
-        <input type="number" name="minimumPrice" placeholder="Product Minimum Price" th:value="${product?.getMinimumPrice()}"><br>
-        <input type="url" name="imageLink" placeholder="Product Image" th:value="${product?.getImageLink()}"><br>
-        <input type="number" name="stockAmount" placeholder="Product Stock Amount" th:value="${product?.getStockAmount()}"><br>
-        <select name="category">
-            <option th:each="category : ${categoryList}" th:selected="${category.getName()} == ${product?.getCategory()}" th:value="${category.getName()}" th:text="${category.getName()}"></option>
-        </select><br>
-        <input type="submit">
-    </form>
+
+    <div class="container">
+        <header>Product Details</header>
+        <form th:action="${formUrl}" class="form" method="POST">
+            <!-- Item Name -->
+            <div class="input-box">
+                <label for="item-name">Item Name</label>
+                <input type="text" name="name" th:value ="${product?.getName()}" id="item-name" placeholder="Enter item name" required>
+            </div>
+
+            <!-- Product Default Price -->
+            <div class="input-box">
+                <label for="default-price">Product Default Price</label>
+                <input type="number" id="default-price" name="defaultPrice" th:value="${product?.getDefaultPrice()}" placeholder="Enter default price" required>
+            </div>
+
+            <!-- Product Minimum Price -->
+            <div class="input-box">
+                <label for="min-price">Product Minimum Price</label>
+                <input type="number" id="min-price" name="minimumPrice" th:value="${product?.getMinimumPrice()}" placeholder="Enter min price" required>
+            </div>
+
+            <!-- Product Image Path -->
+            <div class="input-box">
+                <label for="image-path">Product Image Path</label>
+                <input type="text" id="image-path" name="imageLink" th:value="${product?.getImageLink()}" placeholder="Enter image path" required>
+            </div>
+
+            <!-- Stock Amount -->
+            <div class="input-box">
+                <label for="stock-amount">Stock Amount</label>
+                <input type="number" id="stock-amount" name="stockAmount" th:value="${product?.getStockAmount()}" placeholder="Enter stock amount" required>
+            </div>
+
+            <!-- Category -->
+            <div class="category-box">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select category</option>
+                    <option th:each="category : ${categoryList}" th:selected="${category.getName()} == ${product?.getCategory()}" th:value="${category.getName()}" th:text="${category.getName()}"></option>
+                </select><br>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 
 <div th:replace="~{fragments/footer}"></div>
 </body>

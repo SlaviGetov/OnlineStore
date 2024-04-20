@@ -44,7 +44,10 @@
                     </td>
                     <td class="product-quantity"><p th:text="${discount.isActive()}"></p></td>
                     <td class="product-removal"><p th:text="${discount.getPercentageDiscount()}"></p></td>
-                    <td class="product-price"><a th:href="@{/discounts/edit/{id}(id=${discount.getId()})}">Edit</a></td>
+                    <td class="product-price">
+                        <a th:href="@{/discounts/edit/{id}(id=${discount.getId()})}">Edit</a>
+                        <a th:href="@{/discounts/delete/{id}(id=${discount.getId()})}">Delete</a>
+                    </td>
                 </tr>
 
                 <!-- Add more cart item rows here if needed -->

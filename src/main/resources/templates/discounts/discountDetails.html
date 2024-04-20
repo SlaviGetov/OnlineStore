@@ -1,12 +1,32 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<th:block th:fragment="details(url)" th:object="${discountDTO}">
-    <form method="post" th:action="${url}">
-        <input type="text" placeholder="Discount name" th:field="${discountDTO.name}" name="name"><br>
-        <input type="number" step="any" max="1" min="0" th:field="${discountDTO.percentageDiscount}" placeholder="Discount percentage" name="percentageDiscount"><br>
-        Active? <input type="checkbox" name="isActive" th:field="${discountDTO.active}" ><br>
-        <input type="submit">
+
+
+<div class="container" th:fragment="details(url)" th:object="${discountDTO}">
+    <link rel="stylesheet" href="/css/admin_panel.css">
+
+    <header>Discount Details</header>
+    <form method="post" class="form" th:action="${url}">
+        <!-- Item Name -->
+        <div class="input-box">
+            <label for="item-name">Discount name</label>
+            <input id="item-name" type="text" name="name" placeholder="Discount name" th:field="${discountDTO.name}" required>
+        </div>
+
+        <!-- Product Default Price -->
+        <div class="input-box">
+            <label for="default-price">Discount percentage</label>
+            <input type="number" step="any" max="1" min="0" id="default-price" th:field="${discountDTO.percentageDiscount}"  name="percentageDiscount" placeholder="Enter discount percentage" required>
+        </div>
+
+        <!-- Product Minimum Price -->
+        <div class="input-box">
+            <label for="min-price">Is discount active: </label>
+            <input type="checkbox" id="min-price" name="isActive" th:field="${discountDTO.active}">
+        </div>
+
+
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
     </form>
-</th:block>
-</html>
-
-
+</div>

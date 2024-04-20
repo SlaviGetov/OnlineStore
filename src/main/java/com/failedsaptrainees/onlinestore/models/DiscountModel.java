@@ -22,7 +22,7 @@ public class DiscountModel {
 
     private double percentageDiscount;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ProductModel> products;
 
