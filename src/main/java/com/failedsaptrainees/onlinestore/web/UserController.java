@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,10 +37,10 @@ public class UserController {
 
         if(bindingResult.hasErrors())
         {
-            for (ObjectError allError : bindingResult.getAllErrors()) {
 
-                RedirectAttributeUtils.addErrorAttribute(attrs, allError.getDefaultMessage());
-            }
+            bindingResult.getAllErrors().forEach(error -> {
+                RedirectAttributeUtils.addErrorToModel(attrs, error.getDefaultMessage());
+            });
 
             return "redirect:/user/register";
         }
@@ -50,7 +49,7 @@ public class UserController {
             return "redirect:/user/login";
         } catch (RegistrationException e)
         {
-            RedirectAttributeUtils.addErrorAttribute(attrs, "This email has already been taken!");
+            RedirectAttributeUtils.addErrorToModel(attrs, "This email has already been taken!");
             return "redirect:/user/register";
         }
     }

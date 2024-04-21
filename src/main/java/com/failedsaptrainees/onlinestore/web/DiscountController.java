@@ -14,11 +14,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -102,7 +100,7 @@ public class DiscountController {
             discountService.deleteDiscount(discountModel);
         } catch (DiscountException e)
         {
-            RedirectAttributeUtils.addErrorAttribute(redirectAttributes, "The discount no longer exists");
+            RedirectAttributeUtils.addErrorToModel(redirectAttributes, "The discount no longer exists");
         }
 
         return "redirect:/discounts";
@@ -127,12 +125,10 @@ public class DiscountController {
 
     @PostMapping("/addproduct/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String addProductToDiscount(@PathVariable(name = "id") Long discountId, HttpServletRequest request)
+    public String addProductToDiscount(@PathVariable(name = "id") Long discountId, @RequestParam(name = "itemId") Long itemId)
     {
-
         try
         {
-            int itemId = Integer.parseInt(request.getParameter("itemId"));
             ProductModel productModel = productService.getProductByID(itemId);
             DiscountModel discountModel = discountService.getDiscountById(discountId);
             if(!discountModel.getProducts().contains(productModel))
@@ -150,7 +146,7 @@ public class DiscountController {
 
     @GetMapping("/removeproduct/{id}/{productId}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String removeProductFromDiscount(@PathVariable(name = "id") Long discountId, @PathVariable(name = "productId") int productId)
+    public String removeProductFromDiscount(@PathVariable(name = "id") Long discountId, @PathVariable(name = "productId") Long productId)
     {
 
         try {

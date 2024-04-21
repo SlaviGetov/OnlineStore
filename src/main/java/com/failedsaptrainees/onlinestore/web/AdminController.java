@@ -34,9 +34,6 @@ public class AdminController {
     public String getAllUsers(Model model)
     {
         model.addAttribute("users", userService.getAllUsers());
-
-        System.out.println(userService.getAllUsers().stream().map(UserModel::getFullName));
-
         return "admin/userList";
     }
 

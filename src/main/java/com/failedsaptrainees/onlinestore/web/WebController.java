@@ -10,24 +10,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("")
 public class WebController {
 
-    @RequestMapping("")
+    @GetMapping("")
     public String index()
     {
         return "generalPages/home_page";
     }
 
-    @RequestMapping("/about")
+    @GetMapping("/about")
     public String aboutus()
     {
         return "generalPages/about_us";
     }
 
-    @RequestMapping("/contact")
+    @GetMapping("/contact")
     public String contactus()
     {
         return "generalPages/contact_us";
     }
-
-
 
 }

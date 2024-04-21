@@ -10,18 +10,14 @@ import com.failedsaptrainees.onlinestore.services.ProductService;
 import com.failedsaptrainees.onlinestore.utils.ErrorAttributeUtils;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -48,7 +44,7 @@ public class CartController {
         for (CartProductModel cartProduct : new ArrayList<>(cartList)) {
             if(cartProduct.getAmount() > cartProduct.getProduct().getStockAmount())
             {
-                ErrorAttributeUtils.addErrorAttribute(model, "There aren't " + cartProduct.getAmount() + " of " +
+                ErrorAttributeUtils.addErrorToModel(model, "There aren't " + cartProduct.getAmount() + " of " +
                         cartProduct.getProduct().getName() + ". There's only " + cartProduct.getProduct().getStockAmount() + " in stock right now.");
                 cartProductService.setItemAmount(cartList, cartProduct.getProduct(), Math.toIntExact(cartProduct.getProduct().getStockAmount()));
             }
@@ -63,7 +59,7 @@ public class CartController {
                     cartProductModel.getProduct().getImageLink(),
                     cartProductModel.getProduct().getId(),
                     cartProductModel.getProduct().getName(),
-                    productService.getProductCurrentPrice(cartProductModel.getProduct()),
+                    currentPrice,
                     cartProductModel.getAmount()
             ));
 
@@ -78,7 +74,7 @@ public class CartController {
     @GetMapping("/add/{id}")
     public String addProductToCart(@PathVariable(name = "id") Long product_id, HttpSession httpSession) throws ProductException {
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
-        cartProductService.addItemToCart(cartList, productService.getProductByID(Math.toIntExact(product_id)));
+        cartProductService.addItemToCart(cartList, productService.getProductByID(product_id));
         cartProductService.saveCart(cartList, httpSession);
         return "redirect:/cart/";
     }
@@ -110,7 +106,7 @@ public class CartController {
     @GetMapping("/remove/{id}")
     public String removeProductFromCart(@PathVariable(name="id") Long product_id, HttpSession httpSession) throws ProductException {
         List<CartProductModel> cartList = cartProductService.getCart(httpSession);
-        cartProductService.removeItemFromCart(cartList, productService.getProductByID(Math.toIntExact(product_id)));
+        cartProductService.removeItemFromCart(cartList, productService.getProductByID(product_id));
         cartProductService.saveCart(cartList, httpSession);
         return "redirect:/cart/";
     }

@@ -34,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    @Transactional
     public void sendOrder(List<CartProductModel> cartList) throws OrderException {
 
         UserModel userModel = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());

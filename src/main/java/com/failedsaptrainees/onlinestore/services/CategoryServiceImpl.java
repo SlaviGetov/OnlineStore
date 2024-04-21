@@ -24,19 +24,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryModel getCategoryByName(String categoryName) throws CategoryException {
-        Optional<CategoryModel> category = categoryRepository.findCategoryByName(categoryName);
-        if(category.isEmpty())
-            throw new CategoryException("Category with name " + categoryName + " doesn't exist!");
+        return categoryRepository.findCategoryByName(categoryName).orElseThrow(() ->
+                new CategoryException("Category with name " + categoryName + " doesn't exist!"));
 
-        return category.get();
     }
 
     @Override
     public CategoryModel getCategoryById(Long categoryId) throws CategoryException {
-        Optional<CategoryModel> category = categoryRepository.findById(categoryId);
-        if(category.isEmpty())
-            throw new CategoryException("Category with id " + categoryId + " doesn't exist!");
-
-        return category.get();
+        return categoryRepository.findById(categoryId).orElseThrow(() ->
+                new CategoryException("Category with id " + categoryId + " doesn't exist!"));
     }
 }
