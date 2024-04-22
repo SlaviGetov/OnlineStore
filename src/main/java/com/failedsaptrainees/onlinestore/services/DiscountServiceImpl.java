@@ -61,10 +61,6 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public DiscountModel getDiscountById(Long id) throws DiscountException {
-        Optional<DiscountModel> discountModel = discountRepository.findById(id);
-        if(discountModel.isEmpty())
-            throw new DiscountException("Discount not found!");
-
-        return discountModel.get();
+        return discountRepository.findById(id).orElseThrow(() -> new DiscountException("Discount not found!"));
     }
 }

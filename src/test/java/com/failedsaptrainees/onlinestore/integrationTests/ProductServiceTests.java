@@ -123,7 +123,7 @@ public class ProductServiceTests {
     public void getProductById_whenNoProductExists()
     {
         assertThrows(ProductException.class, () -> {
-            productService.getProductByID(10);
+            productService.getProductByID(10L);
         });
     }
 

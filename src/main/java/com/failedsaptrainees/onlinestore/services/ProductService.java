@@ -12,11 +12,11 @@ public interface ProductService {
     public void deleteProduct(ProductModel productModel);
     public void updateProduct(Long id, ProductModel productModel);
     public void insertProduct(ProductModel productModel);
-    public ProductModel getProductByID(int id) throws ProductException;
+    public ProductModel getProductByID(Long id) throws ProductException;
     public Double getProductCurrentPrice(ProductModel productModel);
     public List<ProductModel> getAllProductsByCategory(CategoryModel category);
-    public List<ProductModel> getRandomDiscountedProductsFromCategory(CategoryModel category);
-    public List<ProductModel> get4RandomDiscountedProducts();
+    public List<ProductModel> getNRandomDiscountedProductsFromCategory(CategoryModel category, int n);
+    public List<ProductModel> getNRandomDiscountedProducts(int n);
     public List<ProductModel> findByNameContaining(String name);
 
 }

@@ -60,7 +60,7 @@ public class ProductController {
 
     @GetMapping("{id}")
     public String viewProduct(@PathVariable(name = "id") Long product_id, Model model) throws ProductException {
-        ProductModel productModel = productService.getProductByID(Math.toIntExact(product_id));
+        ProductModel productModel = productService.getProductByID(product_id);
         ProductViewDTO productViewDTO = new ProductViewDTO(productModel, productService.getProductCurrentPrice(productModel));
 
         model.addAttribute("product", productViewDTO);
@@ -139,7 +139,7 @@ public class ProductController {
 
     @GetMapping("/update/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String updateProduct(@PathVariable("id") int id, Model model) throws ProductException {
+    public String updateProduct(@PathVariable("id") Long id, Model model) throws ProductException {
 
         ModelMapper modelMapper = new ModelMapper();
         ProductModel productModel = productService.getProductByID(id);
@@ -177,7 +177,7 @@ public class ProductController {
 
     @GetMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String deleteProduct(@PathVariable("id") int id) throws ProductException {
+    public String deleteProduct(@PathVariable("id") Long id) throws ProductException {
 
         ProductModel productModel = productService.getProductByID(id);
         productService.deleteProduct(productModel);
@@ -190,7 +190,7 @@ public class ProductController {
 
         List<ProductViewDTO> productViewDTOS = new ArrayList<>();
 
-        for (ProductModel product : productService.get4RandomDiscountedProducts()) {
+        for (ProductModel product : productService.getNRandomDiscountedProducts(4)) {
             productViewDTOS.add(new ProductViewDTO(product, productService.getProductCurrentPrice(product)));
         }
 

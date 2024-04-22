@@ -53,26 +53,21 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserModel getUserByEmail(String email) {
-        Optional<UserModel> userModel = userRepository.findByEmail(email);
-
-        if(userModel.isEmpty())
-            throw new UsernameNotFoundException("Email not found!");
-
-        return userModel.get();
+        return userRepository.findByEmail(email).orElseThrow(() ->
+                new UsernameNotFoundException("Email not found!"));
     }
 
     @Override
     public UserModel getUserById(Long id) throws UsernameNotFoundException {
-
-        Optional<UserModel> userModel = userRepository.findById(id);
-        if(userModel.isEmpty())
-            throw new UsernameNotFoundException("The specified user cannot be found!");
-
-        return userModel.get();
+        return userRepository.findById(id).orElseThrow(() ->
+                new UsernameNotFoundException("The specified user cannot be found!"));
     }
 
     @Override
     public void updateUser(Long id, UserModel userModel) {
+        if(userRepository.findById(id).isEmpty())
+            throw new UsernameNotFoundException("The specified user cannot be found!");
+
         userModel.setId(id);
         userRepository.saveAndFlush(userModel);
     }

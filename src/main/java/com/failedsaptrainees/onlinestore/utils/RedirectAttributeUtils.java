@@ -1,6 +1,5 @@
 package com.failedsaptrainees.onlinestore.utils;
 
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -8,8 +7,11 @@ import java.util.List;
 
 public class RedirectAttributeUtils {
 
-    public static void addErrorAttribute(RedirectAttributes redirectAttributes, String error)
+    public static void addErrorToModel(RedirectAttributes redirectAttributes, String error)
     {
+        if(redirectAttributes == null)
+            throw new NullPointerException("Model was set to null");
+
 
         List<String> errorList = new ArrayList<>();
 

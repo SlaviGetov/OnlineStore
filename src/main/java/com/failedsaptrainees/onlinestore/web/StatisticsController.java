@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/statistics")
 public class StatisticsController {
@@ -24,17 +26,16 @@ public class StatisticsController {
 
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String getIncomeForDuration()
+    public String showIncomeForDuration()
     {
         return "statistics/getIncomeForDuration";
     }
 
     @PostMapping("")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String getIncomeForDuration(@Valid @ModelAttribute IncomeForDurationFormDTO incomeForDurationFormDTO, BindingResult bindingResult, Model model)
+    public String processIncomeForDuration(@Valid @ModelAttribute IncomeForDurationFormDTO incomeForDurationFormDTO, BindingResult bindingResult, Model model)
     {
         model.addAttribute("incomeForDurationFormDTO", incomeForDurationFormDTO);
-
 
         for (ObjectError allError : bindingResult.getAllErrors()) {
             System.out.println(allError.getDefaultMessage());
@@ -42,7 +43,7 @@ public class StatisticsController {
 
         if(!bindingResult.hasErrors())
         {
-            Double income = statisticsService.getIncomeBetweenTwoDates(incomeForDurationFormDTO.getFromDate(), incomeForDurationFormDTO.getToDate());
+            BigDecimal income = statisticsService.getIncomeBetweenTwoDates(incomeForDurationFormDTO.getFromDate(), incomeForDurationFormDTO.getToDate());
             model.addAttribute("income", income);
         }
 

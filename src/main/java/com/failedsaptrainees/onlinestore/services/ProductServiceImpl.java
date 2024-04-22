@@ -43,15 +43,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductModel getProductByID(int id) throws ProductException {
+    public ProductModel getProductByID(Long id) throws ProductException {
 
-        Optional<ProductModel> productModel = productRepository.findById((long) id);
-        if(productModel.isEmpty())
-        {
-            throw new ProductException("The specified product cannot be found!");
-        }
-
-        return productModel.get();
+        return productRepository.findById(id).orElseThrow(() -> (
+                new ProductException("The specified product cannot be found!")));
     }
 
     @Override
@@ -82,13 +77,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductModel> getRandomDiscountedProductsFromCategory(CategoryModel category) {
-        return productRepository.get4DiscountedProductsInCategoryRandomly(category);
+    public List<ProductModel> getNRandomDiscountedProductsFromCategory(CategoryModel category, int n) {
+        return productRepository.getNDiscountedProductsInCategoryRandomly(category, n);
     }
 
     @Override
-    public List<ProductModel> get4RandomDiscountedProducts() {
-        return productRepository.get4RandomDiscountedProducts();
+    public List<ProductModel> getNRandomDiscountedProducts(int n) {
+        return productRepository.getNRandomDiscountedProducts(n);
     }
 
     @Override
