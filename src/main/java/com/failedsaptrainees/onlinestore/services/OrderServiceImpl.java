@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
                 LocalDateTime.now()
         );
 
-        orderRepository.save(orderModel);
+        orderRepository.saveAndFlush(orderModel);
 
         for (CartProductModel cartItem : cartList) {
 
@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
                     productService.getProductCurrentPrice(cartItem.getProduct())
             );
 
-            orderProductRepository.save(orderProductModel);
+            orderProductRepository.saveAndFlush(orderProductModel);
         }
     }
 

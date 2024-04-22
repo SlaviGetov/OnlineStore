@@ -9,13 +9,13 @@
 </head>
 
 <body>
-<nav style="display: block; padding-top: 0px;" class="container-fluid p-0 m-0">
-    <div class="d-flex justify-content-between first-row text-center px-3 py-0">
-        <ul class="d-flex justify-content-start align-items-center p-1 m-0">
-            <li class="nav-link link-style"><a href="/">Home</a></li>
-            <li class="nav-link link-style"><a href="/about" class="">About Us</a></li>
-            <li class="nav-link link-style"><a href="/contact">Contact Us</a></li>
-            <li class="nav-link link-style" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+<nav style="" class="p-0 m-0">
+    <div class="d-flex flex-column flex-md-row justify-content-md-between first-row text-center px-lg-3 py-0 h-100">
+        <ul class="d-flex  p-0 m-0 justify-content-center">
+            <li class="nav-link link-style p-1"><a href="/">Home</a></li>
+            <li class="nav-link link-style p-1"><a href="/about" class="">About Us</a></li>
+            <li class="nav-link link-style p-1"><a href="/contact">Contact Us</a></li>
+            <li class="nav-link link-style p-1" sec:authorize="hasRole('ROLE_EMPLOYEE')">
                 <button class="nav-link link-style p-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Employee Actions
                 </button>
@@ -26,7 +26,7 @@
                     <li><a class="dropdown-item" href="/statistics">Get Statistics</a></li>
                 </ul>
             </li>
-            <li class="nav-link link-style" sec:authorize="hasRole('ROLE_ADMIN')">
+            <li class="nav-link link-style p-1" sec:authorize="hasRole('ROLE_ADMIN')">
                 <button class="nav-link link-style p-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Admin Actions
                 </button>
@@ -36,20 +36,20 @@
             </li>
 
         </ul>
-        <ul class="d-flex justify-content-end text-right align-items-center p-0 m-0">
-            <li class="nav-link link-style" th:if="${#authorization.expression('!isAuthenticated')}">
+        <ul class="d-flex justify-content-center text-right p-0 m-0">
+            <li class="nav-link link-style p-1" th:if="${#authorization.expression('!isAuthenticated')}">
                 <a href="/user/login" class="d-flex align-items-center text-center">
                     <img src="/images/login_logo.png" alt="Login" class="img-fluid" style="height:1.7rem">
                     <span class="">Log in</span>
                 </a>
             </li>
-            <li class="nav-link link-style" th:if="${#authorization.expression('isAuthenticated')}">
+            <li class="nav-link link-style p-1" th:if="${#authorization.expression('isAuthenticated')}">
                 <a href="/user/logout" class="d-flex align-items-center text-center">
                     <img src="/images/login_logo.png" alt="Login" class="img-fluid" style="height:1.7rem">
                     <span class="">Logout</span>
                 </a>
             </li>
-            <li class="nav-link link-style">
+            <li class="nav-link link-style p-1">
                 <a href="/cart" class="d-flex align-items-center text-center">
                     <img src="/images/cart_logo.png" alt="Login" class="img-fluid" style="height:1.7em">
                     <span class="">Cart</span>
@@ -57,14 +57,12 @@
             </li>
         </ul>
     </div>
-    <div class="d-flex justify-content-between align-items-center second-row m-0 p-0 p-lg-4">
-        <!-- Logo -->
-        <div class="">
-            <div class="logo">
-                <a href="/" title="SAPTOPS">
-                    <img src="/images/logo.png" alt="Store Logo" class="img-fluid" style="height:1.7rem">
-                </a>
-            </div>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center second-row m-0 p-0 p-lg-4">
+    <!-- Logo -->
+        <div class="logo d-none d-md-block">
+            <a href="/" title="SAPTOPS">
+                <img src="/images/logo.png" alt="Store Logo" class="img-fluid" style="height:1.7rem">
+            </a>
         </div>
         <div>
             <ul class="d-flex p-0 m-auto text-center">
@@ -75,10 +73,10 @@
         </div>
         <!-- Search bar -->
         <div class="">
-            <form action="/products/search" method="get">
+            <form class="d-flex align-items-center" action="/products/search" method="get">
                 <label for="search" class="visually-hidden"></label>
                 <input id="search" name="search" type="search" placeholder="Search..." class="search-text" autofocus required />
-                <button type="submit"><img src="/images/search_icon.png" alt="Search Icon"
+                <button class="d-none d-md-inline-block" type="submit"><img src="/images/search_icon.png" alt="Search Icon"
                                            style="height:1.7rem"></button>
             </form>
         </div>
