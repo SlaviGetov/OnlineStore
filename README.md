@@ -17,4 +17,5 @@ The project is an Online Store made on Java backend with Spring Boot. (More TBA)
 ### Documentation
 - [ER Diagram](https://github.com/SlaviGetov/OnlineStore/blob/main/documentation/erd.png)
 - [Architecture Diagram](https://github.com/SlaviGetov/OnlineStore/blob/main/documentation/architecture_diagram.jpg)
+- [Project Documentation](https://github.com/SlaviGetov/OnlineStore/blob/main/documentation/Project_Documentation.pdf)
 - [Business Plan Canvas](https://canvanizer.com/canvas/w1dzprYUTXYyq)
