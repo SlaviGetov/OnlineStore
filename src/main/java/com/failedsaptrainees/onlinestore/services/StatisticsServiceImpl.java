@@ -19,13 +19,13 @@ public class StatisticsServiceImpl implements StatisticsService{
     @Override
     public BigDecimal getIncomeBetweenTwoDates(LocalDateTime fromDate, LocalDateTime toDate) {
 
-        BigDecimal result = BigDecimal.valueOf(0);
+        BigDecimal result = new BigDecimal(0);
         List<OrderModel> orders = orderService.getAllOrdersBetweenDates(fromDate, toDate);
 
         for (OrderModel order : orders) {
            List<OrderProductModel> orderProducts = orderService.getOrderProducts(order);
             for (OrderProductModel orderProduct : orderProducts) {
-                result.add(BigDecimal.valueOf(orderProduct.getPriceAtTime() * orderProduct.getAmount()));
+                result = result.add(BigDecimal.valueOf(orderProduct.getPriceAtTime() * orderProduct.getAmount()));
             }
         }
 
