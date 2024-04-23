@@ -17,6 +17,7 @@
 
 .sidebar{
     position:sticky;
+    top:5%;
     border-right:1px solid rgba(0, 91, 238, 0.7);
     height: 100vh;
 }
