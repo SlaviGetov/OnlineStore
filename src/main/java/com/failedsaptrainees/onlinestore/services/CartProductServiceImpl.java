@@ -109,7 +109,7 @@ public class CartProductServiceImpl implements CartProductService {
         CartProductModel newCartProduct = new CartProductModel();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication.isAuthenticated())
+        if(AuthenticationChecker.isLoggedIn())
         {
             newCartProduct.setUser(userService.getUserByEmail(authentication.getName()));
         }

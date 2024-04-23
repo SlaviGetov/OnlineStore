@@ -25,7 +25,7 @@
                 <th:block th:each="product : ${discounted_products}">
                 <div class="sidebar-offer d-md-flex align-items-center d-sm-block text-center text-lg-left">
                     <div class="w-50">
-                        <img th:src="${product.getImageLink()}" alt="NEW!" class="img-fluid">
+                        <a th:href="@{/products/{id}(id=${product.getId()})}"><img th:src="${product.getImageLink()}" alt="NEW!" class="img-fluid"></a>
                     </div>
                     <div class="my-lg-2 px-1">
                         <h5 th:text="${product.getName()}"></h5>
@@ -47,7 +47,9 @@
                     <div class="col-lg-3 col-md-6 col-12 text-center p-0 my-2" th:each="product : ${products}">
                         <div class="laptop-card h-100 m-2" style="position:relative;display: flex;flex-direction: column;">
                             <div class="text-center p-1">
-                                <img th:src="${product.getImageLink()}" alt="laptop" class="img-fluid">
+                                <a th:href="@{/products/{id}(id=${product.getId()})}">
+                                    <img th:src="${product.getImageLink()}" alt="laptop" class="img-fluid">
+                                </a>
                             </div>
                             <div class="p-2 h-100 text-container" style="display: flex;flex-direction: column;justify-content: space-between">
                                 <h4 th:text="${product.getName()}"></h4>

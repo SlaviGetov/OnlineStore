@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService{
     public void updateProduct(Long id, ProductModel productModel)
     {
         productModel.setId(id);
-        productRepository.save(productModel);
+        productRepository.saveAndFlush(productModel);
     }
 
     @Override
